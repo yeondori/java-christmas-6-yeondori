@@ -10,7 +10,13 @@ class MenuBoardTest {
 
     @DisplayName("메뉴판에 존재하는 메뉴면 true를 반환한다.")
     @Test
-    void hasMenu() {
+    void hasMenuTrueCase() {
         assertThat(menuBoard.hasMenu("양송이수프")).isTrue();
+    }
+
+    @DisplayName("메뉴판에 존재하지 않는 메뉴면 false를 반환한다.")
+    @Test
+    void hasMenuFalseCase() {
+        assertThat(menuBoard.hasMenu("뿌링클")).isFalse();
     }
 }
