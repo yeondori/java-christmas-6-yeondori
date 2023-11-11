@@ -44,4 +44,9 @@ public class MenuBoard {
         menuBoard.add(Menu.of("레드와인", 60_000, Category.DRINK));
         menuBoard.add(Menu.of("샴페인", 25_000, Category.DRINK));
     }
+
+    public boolean hasMenu(String name) {
+        return menuBoard.stream()
+                .anyMatch(menu -> menu.getName().equals(name));
+    }
 }
