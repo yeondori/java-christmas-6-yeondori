@@ -19,4 +19,10 @@ class MenuTest {
         assertThat(menu.hasMenu("알리오올리오")).isFalse();
     }
 
+    @Test
+    public void 메뉴의_카테고리를_반환한다() {
+        Menu menu = new Menu();
+
+        assertThat(menu.findCategory("티본스테이크")).isEqualTo(Category.MAIN);
+    }
 }
