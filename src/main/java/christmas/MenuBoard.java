@@ -10,7 +10,7 @@ public class MenuBoard {
         initMenuBoard();
     }
 
-    public MenuBoard loadMenu() {
+    public static MenuBoard loadMenu() {
         return new MenuBoard();
     }
 
@@ -57,4 +57,7 @@ public class MenuBoard {
                 .orElseThrow(() -> new IllegalArgumentException("[ERROR] 해당 메뉴가 존재하지 않습니다."));
     }
 
+    public Category findCategory(String name) {
+        return findMenu(name).getCategory();
+    }
 }
