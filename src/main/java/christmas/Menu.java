@@ -15,7 +15,7 @@ public class Menu {
         this.category = category;
     }
 
-    public Menu of(String name, int price, Category category) {
+    public static Menu of(String name, int price, Category category) {
         return new Menu(name, price, category);
     }
 
