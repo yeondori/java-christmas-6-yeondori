@@ -6,8 +6,12 @@ import java.util.List;
 public class MenuBoard {
     private final List<Menu> menuBoard = new ArrayList<>();
 
-    public MenuBoard() {
+    private MenuBoard() {
         initMenuBoard();
+    }
+
+    public MenuBoard loadMenu() {
+        new MenuBoard();
     }
 
     private void initMenuBoard() {
