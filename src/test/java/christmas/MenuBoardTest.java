@@ -39,4 +39,11 @@ class MenuBoardTest {
     void findCategoryIfPresent() {
         assertThat(menuBoard.findCategory("양송이수프")).isEqualTo(Category.APPETIZER);
     }
+
+    @DisplayName("메뉴판에 존재하지 않으면 예외를 발생한다.")
+    @Test
+    void findCategoryIfNotPresent() {
+        assertThatThrownBy(() -> menuBoard.findCategory("뿌링클"))
+                .isInstanceOf(IllegalArgumentException.class);
+    }
 }
