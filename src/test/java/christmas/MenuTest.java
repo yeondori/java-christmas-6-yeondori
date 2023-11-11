@@ -22,6 +22,14 @@ class MenuTest {
         assertThat(menu.hasMenu("알리오올리오")).isFalse();
     }
 
+    @DisplayName("메뉴와 이름이 같은 음식을 반환한다")
+    @Test
+    public void findMenu() {
+        Menu menu = new Menu();
+
+        assertThat(menu.findMenu("양송이수프")).isInstanceOf(Food.class);
+    }
+
     @DisplayName("메뉴의 카테고리를 반환한다")
     @Test
     public void findCategory() {
