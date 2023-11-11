@@ -19,4 +19,10 @@ class MenuBoardTest {
     void hasMenuFalseCase() {
         assertThat(menuBoard.hasMenu("뿌링클")).isFalse();
     }
+
+    @DisplayName("메뉴판에 존재하면 메뉴를 반환한다.")
+    @Test
+    void findMenuIfPresent() {
+        assertThat(menuBoard.findMenu("양송이수프")).isInstanceOf(Menu.class);
+    }
 }
