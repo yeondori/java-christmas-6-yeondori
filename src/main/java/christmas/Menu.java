@@ -50,6 +50,13 @@ public class Menu {
                 anyMatch(food -> food.getName().equals(name));
     }
 
+    public Food findMenu(String name) {
+        return menu.stream()
+                .filter(food -> food.getName().equals(name))
+                .findFirst()
+                .orElse(null);
+    }
+
     public Category findCategory(String name) {
         return menu.stream()
                 .filter(food -> food.getName().equals(name))
