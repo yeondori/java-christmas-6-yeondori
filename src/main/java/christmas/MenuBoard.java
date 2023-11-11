@@ -11,7 +11,7 @@ public class MenuBoard {
     }
 
     public MenuBoard loadMenu() {
-        new MenuBoard();
+        return new MenuBoard();
     }
 
     private void initMenuBoard() {
@@ -49,4 +49,12 @@ public class MenuBoard {
         return menuBoard.stream()
                 .anyMatch(menu -> menu.getName().equals(name));
     }
+
+    public Menu findMenu(String name) {
+        return menuBoard.stream()
+                .filter(menu -> menu.getName().equals(name))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("[ERROR] 해당 메뉴가 존재하지 않습니다."));
+    }
+
 }
