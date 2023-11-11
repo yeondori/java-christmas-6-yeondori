@@ -4,6 +4,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class MenuBoardTest {
     MenuBoard menuBoard = MenuBoard.loadMenu();
@@ -24,5 +26,12 @@ class MenuBoardTest {
     @Test
     void findMenuIfPresent() {
         assertThat(menuBoard.findMenu("양송이수프")).isInstanceOf(Menu.class);
+    }
+
+    @DisplayName("메뉴판에 존재하지 않으면 예외를 발생한다.")
+    @Test
+    void findMenuIfNotPresent() {
+        assertThatThrownBy(() -> menuBoard.findMenu("뿌링클"))
+                .isInstanceOf(IllegalArgumentException.class);
     }
 }
