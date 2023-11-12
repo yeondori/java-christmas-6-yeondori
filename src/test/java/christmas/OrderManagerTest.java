@@ -47,4 +47,17 @@ class OrderManagerTest {
         assertThatThrownBy(() -> orderManager.receiveOrders(orderInput))
                 .isInstanceOf(IllegalArgumentException.class);
     }
+
+    @DisplayName("음료만 주문하는 경우 예외 처리한다.")
+    @Test
+    void validateOrder() {
+        OrderManager orderManager = OrderManager.from(MenuBoard.loadMenu());
+        HashMap<String, Integer> orderInput = new HashMap<>();
+
+        orderInput.put("제로콜라", 2);
+        orderInput.put("샴페인", 1);
+
+        assertThatThrownBy(() -> orderManager.receiveOrders(orderInput))
+                .isInstanceOf(IllegalArgumentException.class);
+    }
 }
