@@ -13,4 +13,11 @@ public class DiscountPolicy {
         }
         return 0;
     }
+
+    public int getSpecialDayDiscount(int date) {
+        if(specialDay.contains(date)) {
+            return 1000;
+        }
+        return 0;
+    }
 }
