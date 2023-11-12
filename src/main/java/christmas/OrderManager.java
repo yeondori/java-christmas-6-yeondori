@@ -2,13 +2,16 @@ package christmas;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Set;
+
+import static christmas.Category.DRINK;
 
 public class OrderManager {
     private final HashMap<Menu, Integer> orders;
     private final MenuBoard menuBoard;
 
-    public OrderManager(HashMap<Menu, Integer> orders, MenuBoard menuBoard) {
+    private OrderManager(HashMap<Menu, Integer> orders, MenuBoard menuBoard) {
         this.orders = orders;
         this.menuBoard = menuBoard;
     }
@@ -20,6 +23,7 @@ public class OrderManager {
     public void receiveOrders(HashMap<String, Integer> orderInput) {
         validateMenu(orderInput.keySet());
         validateQuantity(orderInput.values());
+        validateOrder(orderInput.keySet());
 
         orderInput.forEach((menuName, quantity) -> {
             Menu orderMenu = menuBoard.findMenu(menuName);
@@ -27,7 +31,7 @@ public class OrderManager {
         });
     }
 
-    public void validateMenu(Set<String> orderMenus) {
+    private void validateMenu(Set<String> orderMenus) {
         for (String menu : orderMenus) {
             if (!menuBoard.hasMenu(menu)) {
                 throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
@@ -35,7 +39,7 @@ public class OrderManager {
         }
     }
 
-    public void validateQuantity(Collection<Integer> orderQuantity) {
+    private void validateQuantity(Collection<Integer> orderQuantity) {
         int totalQuantity = orderQuantity.stream()
                 .mapToInt(Integer::intValue)
                 .sum();
@@ -46,6 +50,16 @@ public class OrderManager {
 
         if (totalQuantity > 20) {
             throw new IllegalArgumentException("[ERROR] 메뉴는 최대 20개까지 주문 가능합니다. 다시 입력해 주세요.");
+        }
+    }
+
+    public void validateOrder(Set<String> orderMenus) {
+        List<Category> categories = orderMenus.stream()
+                .map(menu -> menuBoard.findCategory(menu))
+                .toList();
+
+        if (categories.contains(DRINK) && categories.size() == 1) {
+            throw new IllegalArgumentException("[ERROR] 음료만 주문하는 것은 불가능합니다. 다시 입력해 주세요.");
         }
     }
 }
