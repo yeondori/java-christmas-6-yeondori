@@ -63,4 +63,8 @@ public class OrderManager {
             throw new IllegalArgumentException("[ERROR] 음료만 주문하는 것은 불가능합니다. 다시 입력해 주세요.");
         }
     }
+
+    public HashMap<Menu, Integer> getOrders() {
+        return orders;
+    }
 }
