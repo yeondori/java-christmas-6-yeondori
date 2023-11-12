@@ -56,6 +56,7 @@ public class OrderManager {
     public void validateOrder(Set<String> orderMenus) {
         List<Category> categories = orderMenus.stream()
                 .map(menu -> menuBoard.findCategory(menu))
+                .distinct()
                 .toList();
 
         if (categories.contains(DRINK) && categories.size() == 1) {
