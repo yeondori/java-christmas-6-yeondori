@@ -67,4 +67,10 @@ public class OrderManager {
     public HashMap<Menu, Integer> getOrders() {
         return orders;
     }
+
+    public int getTotalPrice() {
+        return orders.entrySet().stream()
+                .mapToInt(order -> order.getKey().getPrice() * order.getValue())
+                .sum();
+    }
 }
