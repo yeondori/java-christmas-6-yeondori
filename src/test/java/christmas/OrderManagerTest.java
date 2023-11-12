@@ -34,4 +34,17 @@ class OrderManagerTest {
         assertThatThrownBy(() -> orderManager.receiveOrders(orderInput))
                 .isInstanceOf(IllegalArgumentException.class);
     }
+
+    @DisplayName("총 주문수량이 20개가 넘으면 예외 처리한다.")
+    @Test
+    void validateQuantity() {
+        OrderManager orderManager = OrderManager.from(MenuBoard.loadMenu());
+        HashMap<String, Integer> orderInput = new HashMap<>();
+
+        orderInput.put("양송이수프", 10);
+        orderInput.put("티본스테이크", 11);
+
+        assertThatThrownBy(() -> orderManager.receiveOrders(orderInput))
+                .isInstanceOf(IllegalArgumentException.class);
+    }
 }
