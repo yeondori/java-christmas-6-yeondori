@@ -18,10 +18,17 @@ public class OrderManager {
     }
 
     public void receiveOrders(HashMap<String, Integer> orderInput) {
+        validateMenu(orderInput.keySet());
+        validateQuantity(orderInput.values());
+
+        orderInput.forEach((menuName, quantity) -> {
+            Menu orderMenu = menuBoard.findMenu(menuName);
+            orders.put(orderMenu, quantity);
+        });
     }
 
     public void validateMenu(Set<String> orderMenus) {
-        for(String menu : orderMenus) {
+        for (String menu : orderMenus) {
             if (!menuBoard.hasMenu(menu)) {
                 throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
             }
