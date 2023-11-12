@@ -60,4 +60,17 @@ class OrderManagerTest {
         assertThatThrownBy(() -> orderManager.receiveOrders(orderInput))
                 .isInstanceOf(IllegalArgumentException.class);
     }
+
+    @DisplayName("총금액을 올바르게 반환한다.")
+    @Test
+    void getTotalPrice() {
+        OrderManager orderManager = OrderManager.from(MenuBoard.loadMenu());
+        HashMap<String, Integer> orderInput = new HashMap<>();
+
+        orderInput.put("초코케이크", 2);
+        orderInput.put("아이스크림", 1);
+        orderManager.receiveOrders(orderInput);
+
+        assertThat(orderManager.getTotalPrice()).isEqualTo(35000);
+    }
 }
