@@ -55,4 +55,10 @@ public class OrderController {
             throw new IllegalArgumentException("[ERROR] 음료만 주문하는 것은 불가합니다. 다시 입력해 주세요.");
         }
     }
+
+    public static int calculateTotalPrice(List<Order> orders) {
+        return orders.stream()
+                .mapToInt(order -> Order.calculateOrderPrice(order.getMenuName()))
+                .sum();
+    }
 }
