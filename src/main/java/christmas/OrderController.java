@@ -1,6 +1,7 @@
 package christmas;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -54,5 +55,20 @@ public class OrderController {
     public static Map<String, Integer> getOrders(List<Order> orders) {
         return orders.stream()
                 .collect(Collectors.toMap(Order::getMenuName, Order::getQuantity));
+    }
+
+    public static Map<Category, Integer> getQuantityByCategory(List<Order> orders) {
+        Map<Category, Integer> totalQunatityByCategory = new HashMap<>();
+
+        for (Category category : Category.values()) {
+            int totalQuantity = orders.stream()
+                    .filter(order -> order.getCategory().equals(category))
+                    .mapToInt(Order::getQuantity)
+                    .sum();
+
+            totalQunatityByCategory.put(category, totalQuantity);
+        }
+
+        return totalQunatityByCategory;
     }
 }
