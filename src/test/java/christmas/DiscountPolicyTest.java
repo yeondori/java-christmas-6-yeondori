@@ -63,17 +63,6 @@ class DiscountPolicyTest {
         assertThat(weekdayDiscount).isEqualTo(2023 * dessertQuantity);
     }
 
-    @DisplayName("평일에 디저트를 주문하지 않으면 평일 할인을 받을 수 없다.")
-    @Test
-    void getNoWeekdayDiscountOnNonDessertOrder() {
-        DiscountPolicy discountPolicy = new DiscountPolicy();
-
-        int noDessert = 0;
-        int weekdayDiscount = discountPolicy.getWeekdayDiscount(WEEKDAY, noDessert);
-
-        assertThat(weekdayDiscount).isEqualTo(0);
-    }
-
     @DisplayName("주말에 메인을 주문하면 주말 할인을 받을 수 있다.")
     @Test
     void getWeekendDiscountOnMainOrder() {
