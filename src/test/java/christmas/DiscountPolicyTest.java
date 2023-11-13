@@ -30,7 +30,7 @@ class DiscountPolicyTest {
         assertThat(christmasDiscount).isEqualTo(0);
     }
 
-    @DisplayName("특정 날짜에는 특별 할인을 받을 수 있다")
+    @DisplayName("특정 날짜에는 특별 할인을 받을 수 있다.")
     @Test
     void getSpecialDiscountOnSpecialDay() {
         DiscountPolicy discountPolicy = new DiscountPolicy();
@@ -41,7 +41,7 @@ class DiscountPolicyTest {
         }
     }
 
-    @DisplayName("평일에 디저트를 주문하면 평일 할인을 받을 수 있다")
+    @DisplayName("평일에 디저트를 주문하면 평일 할인을 받을 수 있다.")
     @Test
     void getWeekdayDiscountOnDessertOrder() {
         DiscountPolicy discountPolicy = new DiscountPolicy();
@@ -51,5 +51,17 @@ class DiscountPolicyTest {
         int weekdayDiscount = discountPolicy.getWeekdayDiscount(date, dessertQuantity);
 
         assertThat(weekdayDiscount).isEqualTo(2023);
+    }
+
+    @DisplayName("평일에 디저트를 주문하지 않으면 평일 할인을 받을 수 없다.")
+    @Test
+    void getNoWeekdayDiscountOnNonDessertOrder() {
+        DiscountPolicy discountPolicy = new DiscountPolicy();
+
+        int date = 3;
+        int dessertQuantity = 0;
+        int weekdayDiscount = discountPolicy.getWeekdayDiscount(date, dessertQuantity);
+
+        assertThat(weekdayDiscount).isEqualTo(0);
     }
 }
