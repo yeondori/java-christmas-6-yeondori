@@ -1,7 +1,9 @@
 package christmas;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class DiscountPolicy {
     private final List<Integer> weekend = Arrays.asList(1, 2, 8, 9, 15, 16, 22, 23, 29, 30);
@@ -31,6 +33,13 @@ public class DiscountPolicy {
     public int getWeekendDiscount(int date, int mainQuantity) {
         if (weekend.contains(date)) {
             return mainQuantity * 2023;
+        }
+        return 0;
+    }
+
+    public int getGiftDiscount(int totalPrice) {
+        if (totalPrice>=120_000) {
+            return 25000;
         }
         return 0;
     }
