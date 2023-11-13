@@ -76,11 +76,21 @@ class DiscountPolicyTest {
 
     @DisplayName("12만원 이상 구매시 증정 할인을 받을 수 있다.")
     @Test
-    void getGiftDiscount() {
+    void getGiftDiscountIfExceeds120000() {
         DiscountPolicy discountPolicy = new DiscountPolicy();
 
         int weekendDiscount = discountPolicy.getGiftDiscount(120_000);
 
         assertThat(weekendDiscount).isEqualTo(25000);
+    }
+
+    @DisplayName("12만원 미만 구매시 증정 할인을 받을 수 없다.")
+    @Test
+    void getNoGiftDiscountIfNotExceeds120000() {
+        DiscountPolicy discountPolicy = new DiscountPolicy();
+
+        int weekendDiscount = discountPolicy.getGiftDiscount(119_000);
+
+        assertThat(weekendDiscount).isEqualTo(0);
     }
 }
