@@ -15,7 +15,7 @@ public class DiscountPolicy {
     }
 
     public int getSpecialDayDiscount(int date) {
-        if(specialDay.contains(date)) {
+        if (specialDay.contains(date)) {
             return 1000;
         }
         return 0;
@@ -25,5 +25,13 @@ public class DiscountPolicy {
         if (!weekend.contains(date)) {
             return dessertQuantity * 2023;
         }
+        return 0;
+    }
+
+    public int getWeekendDiscount(int date, int mainQuantity) {
+        if (weekend.contains(date)) {
+            return mainQuantity * 2023;
+        }
+        return 0;
     }
 }
