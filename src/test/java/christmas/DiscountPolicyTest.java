@@ -43,7 +43,7 @@ class DiscountPolicyTest {
 
     @DisplayName("평일에 디저트를 주문하면 평일 할인을 받을 수 있다")
     @Test
-    void getWeekdayDiscount() {
+    void getWeekdayDiscountOnDessertOrder() {
         DiscountPolicy discountPolicy = new DiscountPolicy();
 
         int date = 3;
