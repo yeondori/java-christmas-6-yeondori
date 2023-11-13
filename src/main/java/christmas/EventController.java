@@ -36,6 +36,12 @@ public class EventController {
         return totalBenefits;
     }
 
+    public EventBadge getEventBadge(int date) {
+        int totalBenefitPrice = getTotalBenefitPrice(date);
+
+        return EventBadge.determineEventBadge(totalBenefitPrice);
+    }
+
     public int getTotalBenefitPrice(int date) {
         return getTotalBenefits(date).values().stream()
                 .mapToInt(Integer::intValue)
