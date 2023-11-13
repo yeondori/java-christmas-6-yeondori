@@ -22,10 +22,16 @@ public enum Discount {
     }
 
     public int getAdditionalDiscount() {
+        if (additionalDiscount == null) {
+            throw new IllegalArgumentException("[ERROR] 추가 할인 대상이 아닙니다.");
+        }
         return additionalDiscount;
     }
 
     public int getPriceCondition() {
+        if (priceCondition == null) {
+            throw new IllegalArgumentException("[ERROR] 주문 금액이 필요한 할인 대상이 아닙니다.");
+        }
         return priceCondition;
     }
 }
