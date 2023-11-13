@@ -35,4 +35,8 @@ public class Order {
             throw new IllegalArgumentException("[ERROR] 메뉴는 최대 20개까지 주문 가능합니다. 다시 입력해 주세요.");
         }
     }
+
+    public int calculateOrderPrice(String menuName) {
+        return menuBoard.findPrice(menuName) * quantity;
+    }
 }
