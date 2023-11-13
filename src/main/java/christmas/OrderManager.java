@@ -1,9 +1,6 @@
 package christmas;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import static christmas.Category.DRINK;
 
