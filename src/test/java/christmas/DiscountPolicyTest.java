@@ -3,9 +3,14 @@ package christmas;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 class DiscountPolicyTest {
+    private final List<Integer> specialDay = Arrays.asList(3, 10, 17, 24, 25, 31);
+
     @DisplayName("크리스마스 기간에는 크리스마스 할인을 받을 수 있다.")
     @Test
     void getChristmasDiscountDuringChristmas() {
@@ -22,5 +27,16 @@ class DiscountPolicyTest {
         int christmasDiscount = discountPolicy.getChristmasDiscount(26);
 
         assertThat(christmasDiscount).isEqualTo(0);
+    }
+
+    @DisplayName("특정 날짜에는 특별 할인을 받을 수 있다")
+    @Test
+    void getSpecialDiscountOnSpecialDay() {
+        DiscountPolicy discountPolicy = new DiscountPolicy();
+
+        for (int day : specialDay) {
+            int specialDiscount = discountPolicy.getSpecialDayDiscount(day);
+            assertThat(specialDiscount).isEqualTo(1000);
+        }
     }
 }
