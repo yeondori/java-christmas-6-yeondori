@@ -16,5 +16,18 @@ public class OrderController {
     }
 
     private static void validateOrders(List<Order> orders) {
+        validateTotalQuantity(orders);
+        validateDuplicateMenu(orders);
+        validateOnlyDrink(orders);
+    }
+
+    private static void validateTotalQuantity(List<Order> orders) {
+
+    }
+
+    private static void validateDuplicateMenu(List<Order> orders) {
+    }
+
+    private static void validateOnlyDrink(List<Order> orders) {
     }
 }
