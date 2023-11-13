@@ -34,6 +34,8 @@ class OrderTest {
         Order 양송이수프 = Order.createOrderOf("양송이수프", 3);
         int orderPrice = Order.calculateOrderPrice(양송이수프);
 
-        assertThat(orderPrice).isEqualTo(양송이수프.getPrice() * 3);
+        int expectedPrice = MenuBoard.loadMenu().findPrice("양송이수프") * 3;
+
+        assertThat(orderPrice).isEqualTo(expectedPrice);
     }
 }
