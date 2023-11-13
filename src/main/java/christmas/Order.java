@@ -39,4 +39,16 @@ public class Order {
     public int calculateOrderPrice(String menuName) {
         return menuBoard.findPrice(menuName) * quantity;
     }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public String getMenuName() {
+        return menuName;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
 }
