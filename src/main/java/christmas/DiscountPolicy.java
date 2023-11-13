@@ -20,4 +20,10 @@ public class DiscountPolicy {
         }
         return 0;
     }
+
+    public int getWeekdayDiscount(int date, int dessertQuantity) {
+        if (!weekend.contains(date)) {
+            return dessertQuantity * 2023;
+        }
+    }
 }
