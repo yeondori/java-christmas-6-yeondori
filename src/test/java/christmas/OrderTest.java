@@ -29,6 +29,7 @@ class OrderTest {
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
+    @DisplayName("주문한 메뉴의 가격과 주문한 수량으로 주문금액을 계산한다.")
     @Test
     void calculateOrderPrice() {
         Order 양송이수프 = Order.createOrderOf("양송이수프", 3);
