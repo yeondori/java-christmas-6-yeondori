@@ -60,4 +60,8 @@ public class MenuBoard {
     public Category findCategory(String name) {
         return findMenu(name).getCategory();
     }
+
+    public int findPrice(String name) {
+        return findMenu(name).getPrice();
+    }
 }
