@@ -21,14 +21,14 @@ public class DiscountPolicy {
 
     public int getWeekdayDiscount(int date, int dessertQuantity) {
         if (!WEEKEND_DAY.contains(date)) {
-            return dessertQuantity * WEEKDAY.getAdditionalDiscount();
+            return dessertQuantity * WEEKDAY.getBaseDiscount();
         }
         return 0;
     }
 
     public int getWeekendDiscount(int date, int mainQuantity) {
         if (WEEKEND_DAY.contains(date)) {
-            return mainQuantity * WEEKEND.getAdditionalDiscount();
+            return mainQuantity * WEEKEND.getBaseDiscount();
         }
         return 0;
     }
