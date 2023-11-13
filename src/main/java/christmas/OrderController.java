@@ -21,7 +21,6 @@ public class OrderController {
 
     private static void validateOrders(List<Order> orders) {
         validateTotalQuantity(orders);
-        validateDuplicateMenu(orders);
         validateOnlyDrink(orders);
     }
 
@@ -32,18 +31,6 @@ public class OrderController {
 
         if (totalQuantity > 20) {
             throw new IllegalArgumentException("[ERROR] 메뉴는 최대 20개까지 주문 가능합니다. 다시 입력해 주세요.");
-        }
-    }
-
-    private static void validateDuplicateMenu(List<Order> orders) {
-        int uniqueMenuSize = orders.stream()
-                .map(Order::getMenuName)
-                .distinct()
-                .toList()
-                .size();
-
-        if (uniqueMenuSize != orders.size()) {
-            throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
         }
     }
 
@@ -60,7 +47,7 @@ public class OrderController {
 
     public static int getTotalPrice(List<Order> orders) {
         return orders.stream()
-                .mapToInt(order -> Order.calculateOrderPrice(order.getMenuName()))
+                .mapToInt(Order::calculateOrderPrice)
                 .sum();
     }
 
