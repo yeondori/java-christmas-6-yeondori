@@ -3,6 +3,7 @@ package christmas;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class OrderTest {
@@ -30,17 +31,9 @@ class OrderTest {
 
     @Test
     void calculateOrderPrice() {
-    }
+        Order 양송이수프 = Order.createOrderOf("양송이수프", 3);
+        int orderPrice = Order.calculateOrderPrice(양송이수프);
 
-    @Test
-    void getCategory() {
-    }
-
-    @Test
-    void getMenuName() {
-    }
-
-    @Test
-    void getQuantity() {
+        assertThat(orderPrice).isEqualTo(양송이수프.getPrice() * 3);
     }
 }
