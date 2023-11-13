@@ -1,11 +1,11 @@
 package christmas;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static christmas.Category.*;
+import static christmas.Category.DESSERT;
+import static christmas.Category.MAIN;
 import static christmas.Discount.*;
 
 public class EventController {
@@ -34,5 +34,11 @@ public class EventController {
         totalBenefits.put(GIFT, discountPolicy.getGiftDiscount(OrderController.getTotalPrice(orders)));
 
         return totalBenefits;
+    }
+
+    public int getTotalBenefitPrice(int date) {
+        return getTotalBenefits(date).values().stream()
+                .mapToInt(Integer::intValue)
+                .sum();
     }
 }
