@@ -6,6 +6,7 @@ public class Order {
     private final String menuName;
     private final int quantity;
 
+
     private Order(Category category, String menuName, int quantity) {
         this.category = category;
         this.menuName = menuName;
@@ -36,8 +37,11 @@ public class Order {
         }
     }
 
-    public int calculateOrderPrice(String menuName) {
-        return menuBoard.findPrice(menuName) * quantity;
+    public static int calculateOrderPrice(Order order) {
+        int price = menuBoard.findPrice(order.getMenuName());
+        int quantity = order.quantity;
+
+        return price * quantity;
     }
 
     public Category getCategory() {
