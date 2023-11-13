@@ -12,7 +12,7 @@ public enum EventBadge {
         this.benefitPrice = benefitPrice;
     }
 
-    public static EventBadge getEventBadge(int totalBenefitPrice) {
+    public static EventBadge determineEventBadge(int totalBenefitPrice) {
         if (totalBenefitPrice < 별.benefitPrice) {
             return 미대상;
         }
