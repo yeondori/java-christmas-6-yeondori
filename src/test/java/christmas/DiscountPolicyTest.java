@@ -39,4 +39,14 @@ class DiscountPolicyTest {
             assertThat(specialDiscount).isEqualTo(1000);
         }
     }
+
+    @DisplayName("지정한 날짜가 아니면 특별 할인을 받을 수 없다")
+    @Test
+    void getNoSpecialDiscountOnNonSpecialDay() {
+        DiscountPolicy discountPolicy = new DiscountPolicy();
+
+        int specialDiscount = discountPolicy.getSpecialDayDiscount(1);
+
+        assertThat(specialDiscount).isEqualTo(0);
+    }
 }
