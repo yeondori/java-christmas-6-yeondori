@@ -3,12 +3,7 @@ package christmas;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.jupiter.api.Assertions.*;
 
 class OrderTest {
 
@@ -23,6 +18,13 @@ class OrderTest {
     @Test
     void createOrderOfOrderQunatityZero() {
         assertThatThrownBy(() -> Order.createOrderOf("양송이수프", 0))
+                .isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @DisplayName("20개를 초과 주문하면 예외 처리한다.")
+    @Test
+    void createOrderOfOrderQunatityMoreThan20() {
+        assertThatThrownBy(() -> Order.createOrderOf("양송이수프", 21))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
