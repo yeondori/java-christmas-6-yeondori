@@ -50,4 +50,23 @@ class OrderControllerTest {
 
         assertThat(OrderController.getTotalPrice(orders)).isEqualTo(expectedPrice);
     }
+
+    @DisplayName("주문한 메뉴의 카테고리별 총 주문 금액을 반환한다")
+    @Test
+    void getQuantityByCategory() {
+        Map<String, Integer> orderInput = new HashMap<>();
+        orderInput.put("제로콜라", 3);
+        orderInput.put("초코케이크", 1);
+        orderInput.put("아이스크림", 2);
+
+        List<Order> orders = OrderController.receiveOrders(orderInput);
+        Map<Category, Integer> result = OrderController.getQuantityByCategory(orders);
+
+        assertThat(result).containsExactlyInAnyOrderEntriesOf(Map.of(
+                Category.APPETIZER, 0,
+                Category.MAIN, 0,
+                Category.DESSERT, 3,
+                Category.DRINK, 3
+        ));;
+    }
 }
