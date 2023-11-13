@@ -14,4 +14,13 @@ class DiscountPolicyTest {
 
         assertThat(christmasDiscount).isEqualTo(3400);
     }
+
+    @DisplayName("크리스마스가 지나면 크리스마스 할인을 받을 수 없다.")
+    @Test
+    void getNoChristmasDiscountAfterChristmas() {
+        DiscountPolicy discountPolicy = new DiscountPolicy();
+        int christmasDiscount = discountPolicy.getChristmasDiscount(26);
+
+        assertThat(christmasDiscount).isEqualTo(0);
+    }
 }
