@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import static christmas.Category.*;
+
 public class OrderController {
     public static List<Order> receiveOrders(Map<String, Integer> orderInput) {
         List<Order> orders = new ArrayList<>();
@@ -44,5 +46,13 @@ public class OrderController {
     }
 
     private static void validateOnlyDrink(List<Order> orders) {
+        List<Category> categories = orders.stream()
+                .map(Order::getCategory)
+                .distinct()
+                .toList();
+
+        if(categories.size()==1 && categories.contains(DRINK)) {
+            throw new IllegalArgumentException("[ERROR] 음료만 주문하는 것은 불가합니다. 다시 입력해 주세요.");
+        }
     }
 }
