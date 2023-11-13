@@ -44,10 +44,6 @@ public class Order {
         return price * quantity;
     }
 
-    public int getPrice() {
-        return menuBoard.findPrice(menuName);
-    }
-
     public Category getCategory() {
         return category;
     }
