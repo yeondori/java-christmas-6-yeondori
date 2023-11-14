@@ -1,12 +1,10 @@
 package christmas;
 
 import christmas.controller.EventController;
-import christmas.order.Order;
 import christmas.controller.OrderController;
 import christmas.ui.InputView;
 import christmas.ui.OutputView;
 
-import java.util.List;
 import java.util.Map;
 
 public class Application {
@@ -14,9 +12,8 @@ public class Application {
 
     public static void main(String[] args) {
         int date = requestDate();
-        Map<String, Integer> orderInput = requestOrders();
 
-        OrderController orderController = OrderController.receiveOrders(orderInput);
+        OrderController orderController = requestOrders();
         EventController eventController = EventController.from(orderController, date);
 
         getResults(orderController, eventController);
@@ -32,10 +29,11 @@ public class Application {
         }
     }
 
-    public static Map<String, Integer> requestOrders() {
+    public static OrderController requestOrders() {
         while (true) {
             try {
-                return inputView.readOrders();
+                Map<String, Integer> orders = inputView.readOrders();
+                return OrderController.receiveOrders(orders);
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
             }
