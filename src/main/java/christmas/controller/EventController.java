@@ -18,7 +18,7 @@ public class EventController {
     private final OrderController orderController;
     private final int date;
 
-    public EventController(DiscountPolicy discountPolicy, OrderController orderController, int date) {
+    private EventController(DiscountPolicy discountPolicy, OrderController orderController, int date) {
         this.discountPolicy = discountPolicy;
         this.orderController = orderController;
         this.date = date;
@@ -67,7 +67,7 @@ public class EventController {
 
     public int getTotalPayment() {
         int totalPayment = getOrderPrice() - getTotalBenefitPrice();
-        int giftDiscount = getTotalBenefits().get(GIFT).intValue();
+        int giftDiscount = getTotalBenefits().get(GIFT);
         return totalPayment + giftDiscount;
     }
 
