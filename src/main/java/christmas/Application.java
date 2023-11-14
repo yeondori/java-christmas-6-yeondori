@@ -6,6 +6,7 @@ import java.util.Map;
 
 public class Application {
     static InputView inputView = new InputView();
+
     public static void main(String[] args) {
         int date = requestDate();
 
@@ -20,4 +21,15 @@ public class Application {
             }
         }
     }
+
+    public static Map<String, Integer> requestOrders() {
+        while (true) {
+            try {
+                return inputView.readOrders();
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+
 }
