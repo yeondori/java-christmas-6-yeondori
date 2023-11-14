@@ -2,13 +2,10 @@ package christmas.controller;
 
 import christmas.menu.Category;
 import christmas.menu.MenuBoard;
-import christmas.controller.OrderController;
-import christmas.order.Order;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -71,6 +68,6 @@ class OrderControllerTest {
                 Category.MAIN, 0,
                 Category.DESSERT, 3,
                 Category.DRINK, 3
-        ));;
+        ));
     }
 }
