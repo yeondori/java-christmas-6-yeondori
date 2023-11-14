@@ -16,10 +16,10 @@ public class Application {
         int date = requestDate();
         Map<String, Integer> orderInput = requestOrders();
 
-        List<Order> orders = OrderController.receiveOrders(orderInput);
-        EventController eventController = EventController.from(orders, date);
+        OrderController orderController = OrderController.receiveOrders(orderInput);
+        EventController eventController = EventController.from(orderController, date);
 
-        getResults(orders, eventController);
+        getResults(orderController, eventController);
     }
 
     public static int requestDate() {
@@ -42,8 +42,8 @@ public class Application {
         }
     }
 
-    private static void getResults(List<Order> orders, EventController eventController) {
-        OutputView outputView = OutputView.of(orders, eventController);
+    private static void getResults(OrderController orderController, EventController eventController) {
+        OutputView outputView = OutputView.of(orderController, eventController);
         outputView.printResult();
     }
 }
