@@ -3,6 +3,10 @@ package christmas;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 class EventControllerTest {
@@ -46,7 +50,36 @@ class EventControllerTest {
         assertThat(eventBadge).isEqualTo(EventBadge.산타);
     }
 
+    @DisplayName("주문내역과 주문일자를 입력하면 총혜택금액을 반환한다.")
     @Test
     void getTotalBenefitPrice() {
+        List<Order> orders = createTestOrders();
+
+        EventController eventController = EventController.from(orders);
+        int actualDiscount = eventController.getTotalBenefitPrice(25);
+
+        int expectedDiscount = calculateExpectedDiscount(orders, 25);
+        assertThat(actualDiscount).isEqualTo(expectedDiscount);
+    }
+
+    private List<Order> createTestOrders() {
+        Map<String, Integer> orderInput = new HashMap<>();
+        orderInput.put("티본스테이크", 2);
+        orderInput.put("초코케이크", 1);
+
+        return OrderController.receiveOrders(orderInput);
+    }
+
+    private int calculateExpectedDiscount(List<Order> orders, int date) {
+        DiscountPolicy discountPolicy = new DiscountPolicy();
+        Map<Category, Integer> quantityByCategory = OrderController.getQuantityByCategory(orders);
+
+        int christmasDiscount = discountPolicy.getChristmasDiscount(date);
+        int specialDayDiscount = discountPolicy.getSpecialDayDiscount(date);
+        int weekdayDiscount = discountPolicy.getWeekdayDiscount(date, quantityByCategory.get(Category.DESSERT));
+        int weekendDiscount = discountPolicy.getWeekendDiscount(date, quantityByCategory.get(Category.MAIN));
+        int giftDiscount = discountPolicy.getGiftDiscount(OrderController.getTotalPrice(orders));
+
+        return christmasDiscount + specialDayDiscount + weekdayDiscount + weekendDiscount + giftDiscount;
     }
 }
