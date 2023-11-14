@@ -1,7 +1,12 @@
 package christmas;
 
+import christmas.event.EventController;
+import christmas.order.Order;
+import christmas.order.OrderController;
 import christmas.ui.InputView;
+import christmas.ui.OutputView;
 
+import java.util.List;
 import java.util.Map;
 
 public class Application {
@@ -9,7 +14,13 @@ public class Application {
 
     public static void main(String[] args) {
         int date = requestDate();
+        Map<String, Integer> orderInput = requestOrders();
 
+        List<Order> orders = OrderController.receiveOrders(orderInput);
+        EventController eventController = EventController.from(orders, date);
+
+        OutputView outputView = OutputView.of(orders, eventController);
+        outputView.printResult();
     }
 
     public static int requestDate() {
