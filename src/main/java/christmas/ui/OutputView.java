@@ -21,7 +21,7 @@ public class OutputView {
         this.eventController = eventController;
     }
 
-    public OutputView of(List<Order> orders, EventController eventController) {
+    public static OutputView of(List<Order> orders, EventController eventController) {
         return new OutputView(orders, eventController);
     }
 
@@ -89,7 +89,7 @@ public class OutputView {
         int totalBenefitPrice = eventController.getTotalBenefitPrice();
         EventBadge eventBadge = eventController.getEventBadge(totalBenefitPrice);
 
-        System.out.println("<12월 이벤트 배지>");
+        System.out.println("\n<12월 이벤트 배지>");
         if (eventBadge == 미대상) {
             System.out.println("없음");
         }
