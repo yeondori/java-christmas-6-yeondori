@@ -1,31 +1,32 @@
 package christmas.order;
 
 import christmas.menu.Category;
+import christmas.menu.Menu;
 import christmas.menu.MenuBoard;
 
 public class Order {
-    private static final MenuBoard menuBoard = MenuBoard.loadMenu();
+    private final MenuBoard menuBoard;
     private final Category category;
     private final String menuName;
     private final int quantity;
 
-
-    private Order(Category category, String menuName, int quantity) {
+    private Order(MenuBoard menuBoard, Category category, String menuName, int quantity) {
+        this.menuBoard = menuBoard;
         this.category = category;
         this.menuName = menuName;
         this.quantity = quantity;
     }
 
-    public static Order createOrderOf(String menuName, int quantity) {
-        validateMenu(menuName);
+    public static Order createOrderOf(MenuBoard menuBoard, String menuName, int quantity) {
+        validateMenu(menuBoard, menuName);
         validateQuantity(quantity);
 
         Category category = menuBoard.findCategory(menuName);
 
-        return new Order(category, menuName, quantity);
+        return new Order(menuBoard, category, menuName, quantity);
     }
 
-    private static void validateMenu(String menuName) {
+    private static void validateMenu(MenuBoard menuBoard, String menuName) {
         if (!menuBoard.hasMenu(menuName)) {
             throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
         }
@@ -40,9 +41,9 @@ public class Order {
         }
     }
 
-    public static int calculateOrderPrice(Order order) {
-        int price = menuBoard.findPrice(order.getMenuName());
-        int quantity = order.quantity;
+    public int calculateOrderPrice() {
+        int price = menuBoard.findPrice(this.menuName);
+        int quantity = this.quantity;
 
         return price * quantity;
     }
