@@ -1,10 +1,10 @@
 package christmas.ui;
 
+import christmas.controller.EventController;
+import christmas.controller.OrderController;
 import christmas.discount.Discount;
 import christmas.event.EventBadge;
-import christmas.controller.EventController;
 import christmas.order.Order;
-import christmas.controller.OrderController;
 
 import java.util.List;
 import java.util.Map;
@@ -13,16 +13,16 @@ import static christmas.event.EventBadge.미대상;
 
 public class OutputView {
 
-    private final List<Order> orders;
+    private final OrderController orderController;
     private final EventController eventController;
 
-    private OutputView(List<Order> orders, EventController eventController) {
-        this.orders = orders;
+    private OutputView(OrderController orderController, EventController eventController) {
+        this.orderController = orderController;
         this.eventController = eventController;
     }
 
-    public static OutputView of(List<Order> orders, EventController eventController) {
-        return new OutputView(orders, eventController);
+    public static OutputView of(OrderController orderController, EventController eventController) {
+        return new OutputView(orderController, eventController);
     }
 
     public void printResult() {
@@ -36,7 +36,7 @@ public class OutputView {
 
     public void printOrder() {
         System.out.println("\n<주문 메뉴>");
-        Map<String, Integer> orderMenus = OrderController.getOrders(orders);
+        Map<String, Integer> orderMenus = orderController.getOrderHistory();
 
         orderMenus.entrySet().stream()
                 .map(entry -> entry.getKey() + " " + entry.getValue() + "개")
