@@ -24,10 +24,14 @@ public class InputView {
         validateInputNumber(input);
         int date = Integer.parseInt(input);
 
+        validateDate(date);
+        return date;
+    }
+
+    private void validateDate(int date) {
         if (date < 1 || date > 31) {
             throw new IllegalArgumentException(INVALID_DATE_MESSAGE);
         }
-        return date;
     }
 
     public Map<String, Integer> ReadOrders() {
