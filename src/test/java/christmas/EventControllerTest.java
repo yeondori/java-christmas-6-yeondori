@@ -37,6 +37,15 @@ class EventControllerTest {
         assertThat(eventBadge).isEqualTo(EventBadge.트리);
     }
 
+    @DisplayName("총혜택금액이 2만원 이상이면 배지 '산타'이다.")
+    @Test
+    void getEventBadgeIfBenefitOver20000() {
+        int totalBenefitPrice = SantaThreshold;
+        EventBadge eventBadge = EventController.getEventBadge(totalBenefitPrice);
+
+        assertThat(eventBadge).isEqualTo(EventBadge.산타);
+    }
+
     @Test
     void getTotalBenefitPrice() {
     }
