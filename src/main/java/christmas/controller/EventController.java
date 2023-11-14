@@ -43,7 +43,7 @@ public class EventController {
 
     public static EventBadge getEventBadge(int totalBenefitPrice) {
         if (totalBenefitPrice < 별.getBenefitPrice()) {
-            return 미대상;
+            return 없음;
         }
         if (totalBenefitPrice < 트리.getBenefitPrice()) {
             return 별;
