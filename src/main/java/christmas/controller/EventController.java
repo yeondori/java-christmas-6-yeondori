@@ -37,7 +37,7 @@ public class EventController {
         totalBenefits.put(SPECIAL, discountPolicy.getSpecialDayDiscount(totalPrice, date));
         totalBenefits.put(WEEKDAY, discountPolicy.getWeekdayDiscount(totalPrice, date, quantityByCategory.get(DESSERT)));
         totalBenefits.put(WEEKEND, discountPolicy.getWeekendDiscount(totalPrice, date, quantityByCategory.get(MAIN)));
-        totalBenefits.put(GIFT, discountPolicy.getGiftDiscount(totalPrice, orderController.getTotalPrice()));
+        totalBenefits.put(GIFT, discountPolicy.getGiftDiscount(totalPrice));
 
         return totalBenefits;
     }
