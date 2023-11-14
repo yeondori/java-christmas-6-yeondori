@@ -14,11 +14,13 @@ class DiscountPolicyTest {
     private final int WEEKDAY = 3;
     private final int WEEKEND = 2;
 
+    private final int MIN_ORDER_AMOUNT_FOR_DISCOUNT = 10000;
+
     @DisplayName("크리스마스 기간에는 크리스마스 할인을 받을 수 있다.")
     @Test
     void getChristmasDiscountDuringChristmas() {
         DiscountPolicy discountPolicy = new DiscountPolicy();
-        int christmasDiscount = discountPolicy.getChristmasDiscount(25);
+        int christmasDiscount = discountPolicy.getChristmasDiscount(MIN_ORDER_AMOUNT_FOR_DISCOUNT, 25);
 
         assertThat(christmasDiscount).isEqualTo(3400);
     }
@@ -27,7 +29,7 @@ class DiscountPolicyTest {
     @Test
     void getNoChristmasDiscountAfterChristmas() {
         DiscountPolicy discountPolicy = new DiscountPolicy();
-        int christmasDiscount = discountPolicy.getChristmasDiscount(26);
+        int christmasDiscount = discountPolicy.getChristmasDiscount(MIN_ORDER_AMOUNT_FOR_DISCOUNT, 26);
 
         assertThat(christmasDiscount).isEqualTo(0);
     }
@@ -38,7 +40,7 @@ class DiscountPolicyTest {
         DiscountPolicy discountPolicy = new DiscountPolicy();
 
         for (int day : specialDay) {
-            int specialDiscount = discountPolicy.getSpecialDayDiscount(day);
+            int specialDiscount = discountPolicy.getSpecialDayDiscount(MIN_ORDER_AMOUNT_FOR_DISCOUNT, day);
             assertThat(specialDiscount).isEqualTo(1000);
         }
     }
@@ -48,7 +50,7 @@ class DiscountPolicyTest {
     void getNoSpecialDiscountOnNonSpecialDay() {
         DiscountPolicy discountPolicy = new DiscountPolicy();
 
-        int specialDiscount = discountPolicy.getSpecialDayDiscount(1);
+        int specialDiscount = discountPolicy.getSpecialDayDiscount(MIN_ORDER_AMOUNT_FOR_DISCOUNT, 1);
         assertThat(specialDiscount).isEqualTo(0);
 
     }
@@ -59,7 +61,7 @@ class DiscountPolicyTest {
         DiscountPolicy discountPolicy = new DiscountPolicy();
 
         int dessertQuantity = 1;
-        int weekdayDiscount = discountPolicy.getWeekdayDiscount(WEEKDAY, dessertQuantity);
+        int weekdayDiscount = discountPolicy.getWeekdayDiscount(MIN_ORDER_AMOUNT_FOR_DISCOUNT, WEEKDAY, dessertQuantity);
 
         assertThat(weekdayDiscount).isEqualTo(2023 * dessertQuantity);
     }
@@ -70,7 +72,7 @@ class DiscountPolicyTest {
         DiscountPolicy discountPolicy = new DiscountPolicy();
 
         int mainQuanitty = 2;
-        int weekendDiscount = discountPolicy.getWeekendDiscount(WEEKEND, mainQuanitty);
+        int weekendDiscount = discountPolicy.getWeekendDiscount(MIN_ORDER_AMOUNT_FOR_DISCOUNT, WEEKEND, mainQuanitty);
 
         assertThat(weekendDiscount).isEqualTo(2023 * mainQuanitty);
     }
@@ -80,7 +82,7 @@ class DiscountPolicyTest {
     void getGiftDiscountIfExceeds120000() {
         DiscountPolicy discountPolicy = new DiscountPolicy();
 
-        int weekendDiscount = discountPolicy.getGiftDiscount(120_000);
+        int weekendDiscount = discountPolicy.getGiftDiscount(MIN_ORDER_AMOUNT_FOR_DISCOUNT, 120_000);
 
         assertThat(weekendDiscount).isEqualTo(25000);
     }
@@ -90,7 +92,7 @@ class DiscountPolicyTest {
     void getNoGiftDiscountIfNotExceeds120000() {
         DiscountPolicy discountPolicy = new DiscountPolicy();
 
-        int weekendDiscount = discountPolicy.getGiftDiscount(119_000);
+        int weekendDiscount = discountPolicy.getGiftDiscount(MIN_ORDER_AMOUNT_FOR_DISCOUNT, 119_000);
 
         assertThat(weekendDiscount).isEqualTo(0);
     }

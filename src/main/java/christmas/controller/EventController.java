@@ -30,13 +30,14 @@ public class EventController {
 
     public Map<Discount, Integer> getTotalBenefits() {
         Map<Category, Integer> quantityByCategory = orderController.getQuantityByCategory();
+        int totalPrice = orderController.getTotalPrice();
 
         Map<Discount, Integer> totalBenefits = new HashMap<>();
-        totalBenefits.put(CHRISTMAS, discountPolicy.getChristmasDiscount(date));
-        totalBenefits.put(SPECIAL, discountPolicy.getSpecialDayDiscount(date));
-        totalBenefits.put(WEEKDAY, discountPolicy.getWeekdayDiscount(date, quantityByCategory.get(DESSERT)));
-        totalBenefits.put(WEEKEND, discountPolicy.getWeekendDiscount(date, quantityByCategory.get(MAIN)));
-        totalBenefits.put(GIFT, discountPolicy.getGiftDiscount(orderController.getTotalPrice()));
+        totalBenefits.put(CHRISTMAS, discountPolicy.getChristmasDiscount(totalPrice, date));
+        totalBenefits.put(SPECIAL, discountPolicy.getSpecialDayDiscount(totalPrice, date));
+        totalBenefits.put(WEEKDAY, discountPolicy.getWeekdayDiscount(totalPrice, date, quantityByCategory.get(DESSERT)));
+        totalBenefits.put(WEEKEND, discountPolicy.getWeekendDiscount(totalPrice, date, quantityByCategory.get(MAIN)));
+        totalBenefits.put(GIFT, discountPolicy.getGiftDiscount(totalPrice, orderController.getTotalPrice()));
 
         return totalBenefits;
     }

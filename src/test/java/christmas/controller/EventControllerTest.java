@@ -76,12 +76,13 @@ class EventControllerTest {
     private int calculateExpectedDiscount(OrderController orderController, int date) {
         DiscountPolicy discountPolicy = new DiscountPolicy();
         Map<Category, Integer> quantityByCategory = orderController.getQuantityByCategory();
+        int totalPrice = orderController.getTotalPrice();
 
-        int christmasDiscount = discountPolicy.getChristmasDiscount(date);
-        int specialDayDiscount = discountPolicy.getSpecialDayDiscount(date);
-        int weekdayDiscount = discountPolicy.getWeekdayDiscount(date, quantityByCategory.get(Category.DESSERT));
-        int weekendDiscount = discountPolicy.getWeekendDiscount(date, quantityByCategory.get(Category.MAIN));
-        int giftDiscount = discountPolicy.getGiftDiscount(orderController.getTotalPrice());
+        int christmasDiscount = discountPolicy.getChristmasDiscount(totalPrice, date);
+        int specialDayDiscount = discountPolicy.getSpecialDayDiscount(totalPrice, date);
+        int weekdayDiscount = discountPolicy.getWeekdayDiscount(totalPrice, date, quantityByCategory.get(Category.DESSERT));
+        int weekendDiscount = discountPolicy.getWeekendDiscount(totalPrice, date, quantityByCategory.get(Category.MAIN));
+        int giftDiscount = discountPolicy.getGiftDiscount(totalPrice, orderController.getTotalPrice());
 
         return christmasDiscount + specialDayDiscount + weekdayDiscount + weekendDiscount + giftDiscount;
     }
