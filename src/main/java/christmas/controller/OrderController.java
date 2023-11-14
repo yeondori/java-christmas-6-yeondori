@@ -1,10 +1,11 @@
 package christmas.controller;
 
 import christmas.menu.Category;
+import christmas.menu.MenuBoard;
 import christmas.order.Order;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -19,10 +20,10 @@ public class OrderController {
         this.orders = orders;
     }
 
-    public static OrderController receiveOrders(Map<String, Integer> orderInput) {
+    public static OrderController receiveOrders(MenuBoard menuBoard, Map<String, Integer> orderInput) {
         List<Order> receiveOrders = new ArrayList<>();
         orderInput.forEach((menuName, quantity) -> {
-            receiveOrders.add(Order.createOrderOf(menuName, quantity));
+            receiveOrders.add(Order.createOrderOf(menuBoard, menuName, quantity));
         });
 
         validateOrders(receiveOrders);
@@ -55,10 +56,6 @@ public class OrderController {
         }
     }
 
-    public List<Order> getOrders() {
-        return orders;
-    }
-
     public int getTotalPrice() {
         return orders.stream()
                 .mapToInt(Order::calculateOrderPrice)
@@ -71,17 +68,14 @@ public class OrderController {
     }
 
     public Map<Category, Integer> getQuantityByCategory() {
-        Map<Category, Integer> totalQuantityByCategory = new HashMap<>();
+        return Arrays.stream(Category.values())
+                .collect(Collectors.toMap(category -> category, this::getTotalQuantity));
+    }
 
-        for (Category category : Category.values()) {
-            int totalQuantity = orders.stream()
-                    .filter(order -> order.getCategory().equals(category))
-                    .mapToInt(Order::getQuantity)
-                    .sum();
-
-            totalQuantityByCategory.put(category, totalQuantity);
-        }
-
-        return totalQuantityByCategory;
+    private int getTotalQuantity(Category category) {
+        return orders.stream()
+                .filter(order -> order.isCategory(category))
+                .mapToInt(Order::getQuantity)
+                .sum();
     }
 }
