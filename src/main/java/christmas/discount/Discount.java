@@ -1,20 +1,26 @@
 package christmas.discount;
 
 public enum Discount {
-    CHRISTMAS(1000, 100, null),
-    SPECIAL(1000, null, null),
-    WEEKDAY(2023, null, null),
-    WEEKEND(2023, null, null),
-    GIFT(25000, null, 120000);
+    CHRISTMAS("크리스마스 디데이 할인", 1000, 100, null),
+    SPECIAL("특별 할인", 1000, null, null),
+    WEEKDAY("평일 할인", 2023, null, null),
+    WEEKEND("주말 할인", 2023, null, null),
+    GIFT("증정 이벤트:", 25000, null, 120000);
 
+    private final String description;
     private final int baseDiscount;
     private final Integer additionalDiscount;
     private final Integer priceCondition;
 
-    Discount(int baseDiscount, Integer additionalDiscount, Integer priceCondition) {
+    Discount(String descript, int baseDiscount, Integer additionalDiscount, Integer priceCondition) {
+        this.description = descript;
         this.baseDiscount = baseDiscount;
         this.additionalDiscount = additionalDiscount;
         this.priceCondition = priceCondition;
+    }
+
+    public String getDescription() {
+        return description;
     }
 
     public int getBaseDiscount() {
