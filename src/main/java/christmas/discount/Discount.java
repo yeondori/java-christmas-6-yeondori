@@ -1,10 +1,10 @@
 package christmas.discount;
 
 public enum Discount {
-    CHRISTMAS("크리스마스 디데이 할인", 1000, 100, null),
-    SPECIAL("특별 할인", 1000, null, null),
-    WEEKDAY("평일 할인", 2023, null, null),
-    WEEKEND("주말 할인", 2023, null, null),
+    CHRISTMAS("크리스마스 디데이 할인", 1000, 100, 10000),
+    SPECIAL("특별 할인", 1000, null, 10000),
+    WEEKDAY("평일 할인", 2023, null, 10000),
+    WEEKEND("주말 할인", 2023, null, 10000),
     GIFT("증정 이벤트", 25000, null, 120000);
 
     private final String description;
