@@ -22,7 +22,7 @@ class EventControllerTest {
         int totalBenefitPrice = StarThreshold - 1;
         EventBadge eventBadge = EventController.getEventBadge(totalBenefitPrice);
 
-        assertThat(eventBadge).isEqualTo(EventBadge.없음);
+        assertThat(eventBadge).isEqualTo(EventBadge.NONE);
     }
 
     @DisplayName("총혜택금액이 5천원 이상 1만원 미만이면 배지 '별'이다.")
@@ -31,7 +31,7 @@ class EventControllerTest {
         int totalBenefitPrice = TreeThreshold - 1;
         EventBadge eventBadge = EventController.getEventBadge(totalBenefitPrice);
 
-        assertThat(eventBadge).isEqualTo(EventBadge.별);
+        assertThat(eventBadge).isEqualTo(EventBadge.STAR);
     }
 
     @DisplayName("총혜택금액이 1만원 이상 2만원 미만이면 배지 '트리'이다.")
@@ -40,7 +40,7 @@ class EventControllerTest {
         int totalBenefitPrice = SantaThreshold - 1;
         EventBadge eventBadge = EventController.getEventBadge(totalBenefitPrice);
 
-        assertThat(eventBadge).isEqualTo(EventBadge.트리);
+        assertThat(eventBadge).isEqualTo(EventBadge.TREE);
     }
 
     @DisplayName("총혜택금액이 2만원 이상이면 배지 '산타'이다.")
@@ -49,7 +49,7 @@ class EventControllerTest {
         int totalBenefitPrice = SantaThreshold;
         EventBadge eventBadge = EventController.getEventBadge(totalBenefitPrice);
 
-        assertThat(eventBadge).isEqualTo(EventBadge.산타);
+        assertThat(eventBadge).isEqualTo(EventBadge.SANTA);
     }
 
     @DisplayName("주문내역과 주문일자를 입력하면 총혜택금액을 반환한다.")
