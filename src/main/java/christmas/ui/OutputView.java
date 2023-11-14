@@ -38,19 +38,12 @@ public class OutputView {
 
     private static void printBenefitsDetail(Map<Discount, Integer> totalBenefits) {
         System.out.println("<혜택 내역>");
-        boolean hasDiscount = false;
 
-        for (Map.Entry<Discount, Integer> entry : totalBenefits.entrySet()) {
-            int discountAmount = entry.getValue();
+        totalBenefits.entrySet().stream()
+                .filter(entry -> entry.getValue() != 0)
+                .forEach(entry -> System.out.printf("%s 할인: %,d원%n", entry.getKey().name(), entry.getValue()));
 
-            if (discountAmount != 0) {
-                hasDiscount = true;
-
-                System.out.printf("%s 할인: %,d원%n", entry.getKey().name(), discountAmount);
-            }
-        }
-
-        if (!hasDiscount) {
+        if (totalBenefits.values().stream().allMatch(value -> value == 0)) {
             System.out.println("없음");
         }
     }
