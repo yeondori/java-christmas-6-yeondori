@@ -31,6 +31,10 @@ public class OutputView {
         EventController eventController = EventController.from(orders);
         Map<Discount, Integer> totalBenefits = eventController.getTotalBenefits(date);
 
+        printGift(totalBenefits);
+    }
+
+    private static void printGift(Map<Discount, Integer> totalBenefits) {
         Integer giftDiscount = totalBenefits.get(Discount.GIFT);
         if (giftDiscount != 0) {
             System.out.println("샴페인 1개");
@@ -39,4 +43,5 @@ public class OutputView {
             System.out.println("없음");
         }
     }
+
 }
