@@ -82,7 +82,7 @@ class EventControllerTest {
         int specialDayDiscount = discountPolicy.getSpecialDayDiscount(totalPrice, date);
         int weekdayDiscount = discountPolicy.getWeekdayDiscount(totalPrice, date, quantityByCategory.get(Category.DESSERT));
         int weekendDiscount = discountPolicy.getWeekendDiscount(totalPrice, date, quantityByCategory.get(Category.MAIN));
-        int giftDiscount = discountPolicy.getGiftDiscount(totalPrice, orderController.getTotalPrice());
+        int giftDiscount = discountPolicy.getGiftDiscount(totalPrice);
 
         return christmasDiscount + specialDayDiscount + weekdayDiscount + weekendDiscount + giftDiscount;
     }
