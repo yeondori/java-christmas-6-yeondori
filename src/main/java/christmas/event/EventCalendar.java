@@ -10,7 +10,7 @@ public class EventCalendar {
     public static final int CHRISTMAS_END = 25;
 
     public boolean isChristmasPeriod(int date) {
-        return  (date>=CHRISTMAS_START && date<= CHRISTMAS_END);
+        return (date >= CHRISTMAS_START && date <= CHRISTMAS_END);
     }
 
     public boolean isSpecialDay(int date) {
@@ -18,10 +18,10 @@ public class EventCalendar {
     }
 
     public boolean isWeekend(int date) {
-        return (!WEEKEND_DAY.contains(date));
+        return (WEEKEND_DAY.contains(date));
     }
 
     public boolean isWeekday(int date) {
-        return (WEEKEND_DAY.contains(date));
+        return (!WEEKEND_DAY.contains(date));
     }
 }
