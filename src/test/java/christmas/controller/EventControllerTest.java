@@ -1,16 +1,12 @@
 package christmas.controller;
 
 import christmas.discount.DiscountPolicy;
-import christmas.controller.EventController;
 import christmas.event.EventBadge;
 import christmas.menu.Category;
-import christmas.order.Order;
-import christmas.controller.OrderController;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
