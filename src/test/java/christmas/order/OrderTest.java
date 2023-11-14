@@ -1,5 +1,7 @@
-package christmas;
+package christmas.order;
 
+import christmas.menu.MenuBoard;
+import christmas.order.Order;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

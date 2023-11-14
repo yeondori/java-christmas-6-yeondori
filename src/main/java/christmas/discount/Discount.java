@@ -1,4 +1,4 @@
-package christmas;
+package christmas.discount;
 
 public enum Discount {
     CHRISTMAS(1000, 100, null),

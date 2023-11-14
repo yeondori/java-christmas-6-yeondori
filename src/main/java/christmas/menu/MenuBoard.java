@@ -1,4 +1,4 @@
-package christmas;
+package christmas.menu;
 
 import java.util.ArrayList;
 import java.util.List;

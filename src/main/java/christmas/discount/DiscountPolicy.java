@@ -1,7 +1,7 @@
-package christmas;
+package christmas.discount;
 
-import static christmas.Discount.*;
-import static christmas.EventCalendar.*;
+import static christmas.discount.Discount.*;
+import static christmas.event.EventCalendar.*;
 
 public class DiscountPolicy {
 

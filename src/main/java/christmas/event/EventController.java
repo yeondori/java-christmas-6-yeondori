@@ -1,13 +1,19 @@
-package christmas;
+package christmas.event;
+
+import christmas.menu.Category;
+import christmas.order.Order;
+import christmas.order.OrderController;
+import christmas.discount.Discount;
+import christmas.discount.DiscountPolicy;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static christmas.Category.DESSERT;
-import static christmas.Category.MAIN;
-import static christmas.Discount.*;
-import static christmas.EventBadge.*;
+import static christmas.menu.Category.DESSERT;
+import static christmas.menu.Category.MAIN;
+import static christmas.discount.Discount.*;
+import static christmas.event.EventBadge.*;
 
 public class EventController {
     private final DiscountPolicy discountPolicy;

@@ -1,4 +1,6 @@
-package christmas;
+package christmas.order;
+
+import christmas.menu.Category;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -6,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import static christmas.Category.DRINK;
+import static christmas.menu.Category.DRINK;
 
 public class OrderController {
 

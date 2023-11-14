@@ -1,4 +1,7 @@
-package christmas;
+package christmas.order;
+
+import christmas.menu.Category;
+import christmas.menu.MenuBoard;
 
 public class Order {
     private static final MenuBoard menuBoard = MenuBoard.loadMenu();

@@ -1,8 +1,4 @@
-package christmas;
-
-enum Category {
-    APPETIZER, MAIN, DESSERT, DRINK;
-}
+package christmas.menu;
 
 public class Menu {
     private final String name;

@@ -1,5 +1,8 @@
-package christmas;
+package christmas.menu;
 
+import christmas.menu.Category;
+import christmas.menu.Menu;
+import christmas.menu.MenuBoard;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
