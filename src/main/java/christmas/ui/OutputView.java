@@ -4,7 +4,6 @@ import christmas.discount.Discount;
 import christmas.event.EventController;
 import christmas.order.Order;
 import christmas.order.OrderController;
-import org.w3c.dom.ls.LSOutput;
 
 import java.util.List;
 import java.util.Map;
@@ -23,8 +22,7 @@ public class OutputView {
                 .forEach(System.out::println);
 
         System.out.println("\n<할인 전 총주문 금액>");
-        String formattedPrice = String.format("%,d원", OrderController.getTotalPrice(orders));
-        System.out.println(formattedPrice);
+        System.out.printf("%,d원%n", OrderController.getTotalPrice(orders));
     }
 
     public void printBenefits(List<Order> orders, int date) {
@@ -33,19 +31,31 @@ public class OutputView {
 
         printGift(totalBenefits);
         printBenefitsDetail(totalBenefits);
+    }
 
+    public void printTotalPayment(List<Order> orders, int date) {
+        EventController eventController = EventController.from(orders);
+
+        int totalPrice = OrderController.getTotalPrice(orders);
+        int totalBenefitPrice = eventController.getTotalBenefitPrice(date);
+
+        System.out.println("\n<할인 후 예상 결제 금액>");
+        System.out.printf("%,d원%n", totalPrice - totalBenefitPrice);
     }
 
     private static void printBenefitsDetail(Map<Discount, Integer> totalBenefits) {
-        System.out.println("<혜택 내역>");
+        System.out.println("\n<혜택 내역>");
 
         totalBenefits.entrySet().stream()
                 .filter(entry -> entry.getValue() != 0)
-                .forEach(entry -> System.out.printf("%s 할인: %,d원%n", entry.getKey().name(), entry.getValue()));
+                .forEach(entry -> System.out.printf("%s: -%,d원%n", entry.getKey().getDescription(), entry.getValue()));
 
         if (totalBenefits.values().stream().allMatch(value -> value == 0)) {
             System.out.println("없음");
         }
+
+        System.out.println("\n<총혜택 금액>");
+        System.out.printf("-%,d원%n", totalBenefits.values().stream().reduce(0, Integer::sum));
     }
 
     private static void printGift(Map<Discount, Integer> totalBenefits) {
