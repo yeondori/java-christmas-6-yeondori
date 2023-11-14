@@ -6,12 +6,8 @@ import static christmas.event.EventCalendar.*;
 public class DiscountPolicy {
     private final int MIN_ORDER_AMOUNT_FOR_DISCOUNT = 10000;
 
-    private boolean isEligibleForDiscount(int orderAmount) {
-        return orderAmount >= MIN_ORDER_AMOUNT_FOR_DISCOUNT;
-    }
-
     public int getChristmasDiscount(int orderAmount, int date) {
-        if (!isEligibleForDiscount(orderAmount)) {
+        if (orderAmount < CHRISTMAS.getPriceCondition()) {
             return 0;
         }
         if (date >= CHRISTMAS_START && date <= CHRISTMAS_END) {
@@ -21,7 +17,7 @@ public class DiscountPolicy {
     }
 
     public int getSpecialDayDiscount(int orderAmount, int date) {
-        if (!isEligibleForDiscount(orderAmount)) {
+        if (orderAmount < SPECIAL.getPriceCondition()) {
             return 0;
         }
         if (SPECIAL_DAY.contains(date)) {
@@ -31,7 +27,7 @@ public class DiscountPolicy {
     }
 
     public int getWeekdayDiscount(int orderAmount, int date, int dessertQuantity) {
-        if (!isEligibleForDiscount(orderAmount)) {
+        if (orderAmount < WEEKDAY.getPriceCondition()) {
             return 0;
         }
         if (!WEEKEND_DAY.contains(date)) {
@@ -41,7 +37,7 @@ public class DiscountPolicy {
     }
 
     public int getWeekendDiscount(int orderAmount, int date, int mainQuantity) {
-        if (!isEligibleForDiscount(orderAmount)) {
+        if (orderAmount < WEEKEND.getPriceCondition()) {
             return 0;
         }
         if (WEEKEND_DAY.contains(date)) {
@@ -50,11 +46,8 @@ public class DiscountPolicy {
         return 0;
     }
 
-    public int getGiftDiscount(int orderAmount, int totalPrice) {
-        if (!isEligibleForDiscount(orderAmount)) {
-            return 0;
-        }
-        if (totalPrice >= GIFT.getPriceCondition()) {
+    public int getGiftDiscount(int orderAmount) {
+        if (orderAmount >= GIFT.getPriceCondition()) {
             return GIFT.getBaseDiscount();
         }
         return 0;
