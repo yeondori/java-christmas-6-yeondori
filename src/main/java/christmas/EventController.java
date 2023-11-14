@@ -20,8 +20,8 @@ public class EventController {
         this.orders = orders;
     }
 
-    public EventController from(List<Order> receiveOrders) {
-        return new EventController(discountPolicy, orderController, receiveOrders);
+    public static EventController from(List<Order> receiveOrders) {
+        return new EventController(new DiscountPolicy(), new OrderController(), receiveOrders);
     }
 
     public Map<Discount, Integer> getTotalBenefits(int date) {
