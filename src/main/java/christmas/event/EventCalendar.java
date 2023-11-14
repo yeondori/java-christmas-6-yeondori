@@ -16,4 +16,8 @@ public class EventCalendar {
     public boolean isSpecialDay(int date) {
         return (SPECIAL_DAY.contains(date));
     }
+
+    public boolean isWeekend(int date) {
+        return (!WEEKEND_DAY.contains(date));
+    }
 }
