@@ -79,7 +79,7 @@ public class OutputView {
         System.out.println("\n<총혜택 금액>");
         int totalBenefitPrice = eventController.getTotalBenefitPrice();
 
-        if (totalBenefitPrice!=0) {
+        if (totalBenefitPrice != 0) {
             System.out.printf("-");
         }
         System.out.printf("%,d원%n", totalBenefits.values().stream().reduce(0, Integer::sum));
@@ -95,6 +95,6 @@ public class OutputView {
         EventBadge eventBadge = eventController.getEventBadge(totalBenefitPrice);
 
         System.out.println("\n<12월 이벤트 배지>");
-        System.out.println(eventBadge.name());
+        System.out.println(eventBadge.getValue());
     }
 }
