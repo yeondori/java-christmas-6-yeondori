@@ -11,4 +11,8 @@ public enum EventBadge {
     EventBadge(Integer benefitPrice) {
         this.benefitPrice = benefitPrice;
     }
+
+    public Integer getBenefitPrice() {
+        return benefitPrice;
+    }
 }
