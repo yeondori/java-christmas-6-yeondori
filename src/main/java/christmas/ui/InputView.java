@@ -88,6 +88,7 @@ public class InputView {
             throw new IllegalArgumentException(INVALID_DATE_MESSAGE);
         }
     }
+
     private void validateQuantityFormat(String input) {
         if (!input.matches("\\d+")) {
             throw new IllegalArgumentException(INVALID_ORDER_MESSAGE);
