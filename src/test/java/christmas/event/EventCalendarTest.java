@@ -16,4 +16,14 @@ class EventCalendarTest {
 
         assertThat(eventCalendar.isChristmasPeriod(date)).isTrue();
     }
+
+    @DisplayName("25일 이후는 크리스마스 할인 기간이 아니다.")
+    @Test
+    public void isChristmasPeriodFalseCase() {
+        int date = 26;
+
+        EventCalendar eventCalendar = new EventCalendar();
+
+        assertThat(eventCalendar.isChristmasPeriod(date)).isFalse();
+    }
 }
