@@ -54,7 +54,7 @@ public class InputView {
         Map<String, Integer> orderInput = new HashMap<>();
 
         for (String input : inputs) {
-            validaeOrderFormat(input);
+            validateOrderFormat(input);
 
             String[] menuAndQuantity = input.split("-");
             validateMenu(menuAndQuantity[0]);
@@ -67,14 +67,14 @@ public class InputView {
         return orderInput;
     }
 
-    private void validateDuplicate(String[] inputs, Map<String, Integer> orderInput) {
-        if (inputs.length != orderInput.size()) {
+    private void validateOrderFormat(String input) {
+        if (!input.contains("-")) {
             throw new IllegalArgumentException(INVALID_ORDER_MESSAGE);
         }
     }
 
-    private void validaeOrderFormat(String input) {
-        if (!input.contains("-")) {
+    private void validateDuplicate(String[] inputs, Map<String, Integer> orderInput) {
+        if (inputs.length != orderInput.size()) {
             throw new IllegalArgumentException(INVALID_ORDER_MESSAGE);
         }
     }
