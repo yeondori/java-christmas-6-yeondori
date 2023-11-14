@@ -1,7 +1,6 @@
 package christmas.order;
 
 import christmas.menu.Category;
-import christmas.menu.Menu;
 import christmas.menu.MenuBoard;
 
 public class Order {
