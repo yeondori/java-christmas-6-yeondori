@@ -13,14 +13,20 @@ import static christmas.menu.Category.DRINK;
 
 public class OrderController {
 
-    public static List<Order> receiveOrders(Map<String, Integer> orderInput) {
+    private final List<Order> orders;
+
+    private OrderController(List<Order> orders) {
+        this.orders = orders;
+    }
+
+    public static OrderController receiveOrders(Map<String, Integer> orderInput) {
         List<Order> receiveOrders = new ArrayList<>();
         orderInput.forEach((menuName, quantity) -> {
             receiveOrders.add(Order.createOrderOf(menuName, quantity));
         });
 
         validateOrders(receiveOrders);
-        return receiveOrders;
+        return new OrderController(receiveOrders);
     }
 
     private static void validateOrders(List<Order> orders) {
@@ -49,18 +55,22 @@ public class OrderController {
         }
     }
 
-    public static int getTotalPrice(List<Order> orders) {
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public int getTotalPrice() {
         return orders.stream()
                 .mapToInt(Order::calculateOrderPrice)
                 .sum();
     }
 
-    public static Map<String, Integer> getOrders(List<Order> orders) {
+    public Map<String, Integer> getOrderHistory() {
         return orders.stream()
                 .collect(Collectors.toMap(Order::getMenuName, Order::getQuantity));
     }
 
-    public static Map<Category, Integer> getQuantityByCategory(List<Order> orders) {
+    public Map<Category, Integer> getQuantityByCategory() {
         Map<Category, Integer> totalQuantityByCategory = new HashMap<>();
 
         for (Category category : Category.values()) {
