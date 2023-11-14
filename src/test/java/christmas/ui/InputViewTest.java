@@ -28,8 +28,17 @@ class InputViewTest extends NsTest {
         });
     }
 
-    @Test
-    void readOrders() {
+    @DisplayName("주문은 한글,숫자,쉼표(,),대시(-) 이외의 값을 입력받을 수 없다.")
+    @ParameterizedTest
+    @ValueSource(strings = {"t-boneSteak","티본steak-1", "티본스테이크-1, 양송이수프-5"})
+    void readOrdersWithInvalidInputFormat(String invalidInput) {
+        InputView inputView = new InputView();
+
+        assertSimpleTest(() -> {
+            run(invalidInput);
+            assertThatThrownBy(() -> inputView.readOrders())
+                    .isInstanceOf(IllegalArgumentException.class);
+        });
     }
 
     @Override
