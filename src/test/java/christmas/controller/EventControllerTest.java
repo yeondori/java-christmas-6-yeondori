@@ -59,32 +59,33 @@ class EventControllerTest {
     @DisplayName("주문내역과 주문일자를 입력하면 총혜택금액을 반환한다.")
     @Test
     void getTotalBenefitPrice() {
-        List<Order> orders = createTestOrders();
+        OrderController orderController = createTestOrders();
 
-        EventController eventController = EventController.from(orders, 25);
+        EventController eventController = EventController.from(orderController, 25);
         int actualDiscount = eventController.getTotalBenefitPrice();
 
-        int expectedDiscount = calculateExpectedDiscount(orders, 25);
+        int expectedDiscount = calculateExpectedDiscount(orderController, 25);
         assertThat(actualDiscount).isEqualTo(expectedDiscount);
     }
 
-    private List<Order> createTestOrders() {
+    private OrderController createTestOrders() {
         Map<String, Integer> orderInput = new HashMap<>();
         orderInput.put("티본스테이크", 2);
         orderInput.put("초코케이크", 1);
 
-        return OrderController.receiveOrders(orderInput);
+        OrderController orderController = OrderController.receiveOrders(orderInput);
+        return orderController;
     }
 
-    private int calculateExpectedDiscount(List<Order> orders, int date) {
+    private int calculateExpectedDiscount(OrderController orderController, int date) {
         DiscountPolicy discountPolicy = new DiscountPolicy();
-        Map<Category, Integer> quantityByCategory = OrderController.getQuantityByCategory(orders);
+        Map<Category, Integer> quantityByCategory = orderController.getQuantityByCategory();
 
         int christmasDiscount = discountPolicy.getChristmasDiscount(date);
         int specialDayDiscount = discountPolicy.getSpecialDayDiscount(date);
         int weekdayDiscount = discountPolicy.getWeekdayDiscount(date, quantityByCategory.get(Category.DESSERT));
         int weekendDiscount = discountPolicy.getWeekendDiscount(date, quantityByCategory.get(Category.MAIN));
-        int giftDiscount = discountPolicy.getGiftDiscount(OrderController.getTotalPrice(orders));
+        int giftDiscount = discountPolicy.getGiftDiscount(orderController.getTotalPrice());
 
         return christmasDiscount + specialDayDiscount + weekdayDiscount + weekendDiscount + giftDiscount;
     }
