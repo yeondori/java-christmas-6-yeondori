@@ -36,9 +36,7 @@ public class EventController {
         return totalBenefits;
     }
 
-    public EventBadge getEventBadge(int date) {
-        int totalBenefitPrice = getTotalBenefitPrice(date);
-
+    public EventBadge getEventBadge(int totalBenefitPrice) {
         return EventBadge.determineEventBadge(totalBenefitPrice);
     }
 
