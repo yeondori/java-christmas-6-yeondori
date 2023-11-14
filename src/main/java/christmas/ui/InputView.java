@@ -7,7 +7,6 @@ import java.util.Map;
 
 public class InputView {
 
-    private final String INVALID_INPUT_MESSAGE = "[ERROR] 유효하지 않은 입력입니다. 다시 입력해 주세요.";
     private final String INVALID_DATE_MESSAGE = "[ERROR] 유효하지 않은 날짜입니다. 다시 입력해 주세요.";
     private final String INVALID_ORDER_MESSAGE = "[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.";
 
@@ -20,7 +19,7 @@ public class InputView {
     }
 
     private int parseDate(String input) {
-        validateInputNumber(input);
+        validateDateFormat(input);
         int date = Integer.parseInt(input);
 
         validateDate(date);
@@ -57,7 +56,7 @@ public class InputView {
 
             String[] menuAndQuantity = input.split("-");
             validateMenu(menuAndQuantity[0]);
-            validateInputNumber(menuAndQuantity[1]);
+            validateQuantityFormat(menuAndQuantity[1]);
 
             orderInput.put(menuAndQuantity[0], Integer.parseInt(menuAndQuantity[1]));
         }
@@ -84,9 +83,14 @@ public class InputView {
         }
     }
 
-    private void validateInputNumber(String input) {
+    private void validateDateFormat(String input) {
         if (!input.matches("\\d+")) {
-            throw new IllegalArgumentException(INVALID_INPUT_MESSAGE);
+            throw new IllegalArgumentException(INVALID_DATE_MESSAGE);
+        }
+    }
+    private void validateQuantityFormat(String input) {
+        if (!input.matches("\\d+")) {
+            throw new IllegalArgumentException(INVALID_ORDER_MESSAGE);
         }
     }
 }
