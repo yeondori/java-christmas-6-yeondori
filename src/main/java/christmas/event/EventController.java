@@ -31,7 +31,7 @@ public class EventController {
     }
 
     public Map<Discount, Integer> getTotalBenefits(int date) {
-        Map<Category, Integer> quantityByCategory = OrderController.getQuantityByCategory(orders);
+        Map<Category, Integer> quantityByCategory = orderController.getQuantityByCategory(orders);
 
         Map<Discount, Integer> totalBenefits = new HashMap<>();
         totalBenefits.put(CHRISTMAS, discountPolicy.getChristmasDiscount(date));
@@ -43,7 +43,9 @@ public class EventController {
         return totalBenefits;
     }
 
-    public static EventBadge getEventBadge(int totalBenefitPrice) {
+    public EventBadge getEventBadge(int date) {
+        int totalBenefitPrice = getTotalBenefitPrice(date);
+
         if (totalBenefitPrice < 별.getBenefitPrice()) {
             return 미대상;
         }
@@ -56,9 +58,20 @@ public class EventController {
         return 산타;
     }
 
+    public int getOrderPrice() {
+        return orderController.getTotalPrice(orders);
+    }
+
     public int getTotalBenefitPrice(int date) {
         return getTotalBenefits(date).values().stream()
                 .mapToInt(Integer::intValue)
                 .sum();
+    }
+
+    public int getTotalPayment(int date) {
+        int totalPrice = getOrderPrice();
+        int benefitPrice = getTotalBenefitPrice(date);
+
+        return totalPrice - benefitPrice;
     }
 }
