@@ -48,6 +48,10 @@ public class Order {
         return price * quantity;
     }
 
+    public boolean isCategory(Category category) {
+        return this.category.equals(category);
+    }
+
     public Category getCategory() {
         return category;
     }
