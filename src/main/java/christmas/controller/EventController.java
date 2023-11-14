@@ -66,10 +66,9 @@ public class EventController {
     }
 
     public int getTotalPayment() {
-        int totalPrice = getOrderPrice();
-        int benefitPrice = getTotalBenefitPrice();
-
-        return totalPrice - benefitPrice;
+        int totalPayment = getOrderPrice() - getTotalBenefitPrice();
+        int giftDiscount = getTotalBenefits().get(GIFT).intValue();
+        return totalPayment + giftDiscount;
     }
 
     public int getDate() {
