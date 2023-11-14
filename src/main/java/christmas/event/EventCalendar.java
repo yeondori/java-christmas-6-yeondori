@@ -20,4 +20,8 @@ public class EventCalendar {
     public boolean isWeekend(int date) {
         return (!WEEKEND_DAY.contains(date));
     }
+
+    public boolean isWeekday(int date) {
+        return (WEEKEND_DAY.contains(date));
+    }
 }
