@@ -3,6 +3,7 @@ package christmas.ui;
 import camp.nextstep.edu.missionutils.test.NsTest;
 import christmas.Application;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
@@ -45,6 +46,18 @@ class InputViewTest extends NsTest {
 
         assertSimpleTest(() -> {
             run(invalidInput);
+            assertThatThrownBy(() -> inputView.readOrders())
+                    .isInstanceOf(IllegalArgumentException.class);
+        });
+    }
+
+    @DisplayName("중복된 메뉴를 주문할 수 없다")
+    @Test
+    void readOrdersWithDuplicateInput() {
+        InputView inputView = new InputView();
+
+        assertSimpleTest(() -> {
+            run("티본스테이크-3,티본스테이크-4");
             assertThatThrownBy(() -> inputView.readOrders())
                     .isInstanceOf(IllegalArgumentException.class);
         });
