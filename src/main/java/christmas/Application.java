@@ -19,8 +19,7 @@ public class Application {
         List<Order> orders = OrderController.receiveOrders(orderInput);
         EventController eventController = EventController.from(orders, date);
 
-        OutputView outputView = OutputView.of(orders, eventController);
-        outputView.printResult();
+        getResults(orders, eventController);
     }
 
     public static int requestDate() {
@@ -43,4 +42,8 @@ public class Application {
         }
     }
 
+    private static void getResults(List<Order> orders, EventController eventController) {
+        OutputView outputView = OutputView.of(orders, eventController);
+        outputView.printResult();
+    }
 }
