@@ -50,9 +50,9 @@ class OrderControllerTest {
         int expectedPrice = MenuBoard.loadMenu().findPrice("양송이수프") * 1
                 + MenuBoard.loadMenu().findPrice("제로콜라") * 2;
 
-        List<Order> orders = OrderController.receiveOrders(orderInput);
+        OrderController orderController = OrderController.receiveOrders(orderInput);
 
-        assertThat(OrderController.getTotalPrice(orders)).isEqualTo(expectedPrice);
+        assertThat(orderController.getTotalPrice()).isEqualTo(expectedPrice);
     }
 
     @DisplayName("주문한 메뉴의 카테고리별 총 주문 금액을 반환한다")
@@ -63,8 +63,8 @@ class OrderControllerTest {
         orderInput.put("초코케이크", 1);
         orderInput.put("아이스크림", 2);
 
-        List<Order> orders = OrderController.receiveOrders(orderInput);
-        Map<Category, Integer> result = OrderController.getQuantityByCategory(orders);
+        OrderController orderController = OrderController.receiveOrders(orderInput);
+        Map<Category, Integer> result = orderController.getQuantityByCategory();
 
         assertThat(result).containsExactlyInAnyOrderEntriesOf(Map.of(
                 Category.APPETIZER, 0,
