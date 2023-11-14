@@ -7,6 +7,7 @@ import java.util.Map;
 import static christmas.Category.DESSERT;
 import static christmas.Category.MAIN;
 import static christmas.Discount.*;
+import static christmas.EventBadge.*;
 
 public class EventController {
     private final DiscountPolicy discountPolicy;
@@ -36,8 +37,17 @@ public class EventController {
         return totalBenefits;
     }
 
-    public EventBadge getEventBadge(int totalBenefitPrice) {
-        return EventBadge.determineEventBadge(totalBenefitPrice);
+    public static EventBadge getEventBadge(int totalBenefitPrice) {
+        if (totalBenefitPrice < 별.getBenefitPrice()) {
+            return 미대상;
+        }
+        if (totalBenefitPrice < 트리.getBenefitPrice()) {
+            return 별;
+        }
+        if (totalBenefitPrice < 산타.getBenefitPrice()) {
+            return 트리;
+        }
+        return 산타;
     }
 
     public int getTotalBenefitPrice(int date) {
