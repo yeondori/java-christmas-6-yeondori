@@ -82,7 +82,7 @@ class DiscountPolicyTest {
     void getGiftDiscountIfExceeds120000() {
         DiscountPolicy discountPolicy = new DiscountPolicy();
 
-        int weekendDiscount = discountPolicy.getGiftDiscount(MIN_ORDER_AMOUNT_FOR_DISCOUNT, 120_000);
+        int weekendDiscount = discountPolicy.getGiftDiscount(120_000);
 
         assertThat(weekendDiscount).isEqualTo(25000);
     }
@@ -92,7 +92,7 @@ class DiscountPolicyTest {
     void getNoGiftDiscountIfNotExceeds120000() {
         DiscountPolicy discountPolicy = new DiscountPolicy();
 
-        int weekendDiscount = discountPolicy.getGiftDiscount(MIN_ORDER_AMOUNT_FOR_DISCOUNT, 119_000);
+        int weekendDiscount = discountPolicy.getGiftDiscount(119_000);
 
         assertThat(weekendDiscount).isEqualTo(0);
     }
