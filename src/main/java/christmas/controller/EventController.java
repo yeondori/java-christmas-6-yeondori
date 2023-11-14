@@ -1,8 +1,8 @@
-package christmas.event;
+package christmas.controller;
 
+import christmas.event.EventBadge;
 import christmas.menu.Category;
 import christmas.order.Order;
-import christmas.order.OrderController;
 import christmas.discount.Discount;
 import christmas.discount.DiscountPolicy;
 

@@ -1,11 +1,11 @@
-package christmas.event;
+package christmas.controller;
 
 import christmas.discount.DiscountPolicy;
+import christmas.controller.EventController;
 import christmas.event.EventBadge;
-import christmas.event.EventController;
 import christmas.menu.Category;
 import christmas.order.Order;
-import christmas.order.OrderController;
+import christmas.controller.OrderController;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
