@@ -1,16 +1,19 @@
 package christmas.discount;
 
+import christmas.event.EventCalendar;
+
 import static christmas.discount.Discount.*;
 import static christmas.event.EventCalendar.*;
 
 public class DiscountPolicy {
     private final int MIN_ORDER_AMOUNT_FOR_DISCOUNT = 10000;
+    private final EventCalendar eventCalendar = new EventCalendar();
 
     public int getChristmasDiscount(int orderAmount, int date) {
         if (orderAmount < CHRISTMAS.getPriceCondition()) {
             return 0;
         }
-        if (date >= CHRISTMAS_START && date <= CHRISTMAS_END) {
+        if (eventCalendar.isChristmasPeriod(date)) {
             return CHRISTMAS.getBaseDiscount() + (date - 1) * CHRISTMAS.getAdditionalDiscount();
         }
         return 0;
@@ -20,7 +23,7 @@ public class DiscountPolicy {
         if (orderAmount < SPECIAL.getPriceCondition()) {
             return 0;
         }
-        if (SPECIAL_DAY.contains(date)) {
+        if (eventCalendar.isSpecialDay(date)) {
             return SPECIAL.getBaseDiscount();
         }
         return 0;
@@ -30,7 +33,7 @@ public class DiscountPolicy {
         if (orderAmount < WEEKDAY.getPriceCondition()) {
             return 0;
         }
-        if (!WEEKEND_DAY.contains(date)) {
+        if (eventCalendar.isWeekday(date)) {
             return dessertQuantity * WEEKDAY.getBaseDiscount();
         }
         return 0;
@@ -40,7 +43,7 @@ public class DiscountPolicy {
         if (orderAmount < WEEKEND.getPriceCondition()) {
             return 0;
         }
-        if (WEEKEND_DAY.contains(date)) {
+        if (eventCalendar.isWeekend(date)) {
             return mainQuantity * WEEKEND.getBaseDiscount();
         }
         return 0;
