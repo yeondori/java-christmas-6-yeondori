@@ -61,8 +61,8 @@ class EventControllerTest {
     void getTotalBenefitPrice() {
         List<Order> orders = createTestOrders();
 
-        EventController eventController = EventController.from(orders);
-        int actualDiscount = eventController.getTotalBenefitPrice(25);
+        EventController eventController = EventController.from(orders, 25);
+        int actualDiscount = eventController.getTotalBenefitPrice();
 
         int expectedDiscount = calculateExpectedDiscount(orders, 25);
         assertThat(actualDiscount).isEqualTo(expectedDiscount);
