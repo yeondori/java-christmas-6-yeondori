@@ -7,8 +7,6 @@ import christmas.event.EventBadge;
 
 import java.util.Map;
 
-import static christmas.event.EventBadge.미대상;
-
 public class OutputView {
 
     private final OrderController orderController;
@@ -88,9 +86,6 @@ public class OutputView {
         EventBadge eventBadge = eventController.getEventBadge(totalBenefitPrice);
 
         System.out.println("\n<12월 이벤트 배지>");
-        if (eventBadge == 미대상) {
-            System.out.println("없음");
-        }
         System.out.println(eventBadge.name());
     }
 }
