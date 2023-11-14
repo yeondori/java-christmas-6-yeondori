@@ -49,7 +49,7 @@ public class OutputView {
         printBenefitsDetail(totalBenefits);
     }
 
-    private static void printGift(Map<Discount, Integer> totalBenefits) {
+    private void printGift(Map<Discount, Integer> totalBenefits) {
         System.out.println("\n<증정 메뉴>");
 
         Integer giftDiscount = totalBenefits.get(Discount.GIFT);
@@ -61,7 +61,7 @@ public class OutputView {
         }
     }
 
-    private static void printBenefitsDetail(Map<Discount, Integer> totalBenefits) {
+    private void printBenefitsDetail(Map<Discount, Integer> totalBenefits) {
         System.out.println("\n<혜택 내역>");
 
         totalBenefits.entrySet().stream()
@@ -72,8 +72,17 @@ public class OutputView {
             System.out.println("없음");
         }
 
+        printTotalBenefitPrice(totalBenefits);
+    }
+
+    private void printTotalBenefitPrice(Map<Discount, Integer> totalBenefits) {
         System.out.println("\n<총혜택 금액>");
-        System.out.printf("-%,d원%n", totalBenefits.values().stream().reduce(0, Integer::sum));
+        int totalBenefitPrice = eventController.getTotalBenefitPrice();
+
+        if (totalBenefitPrice!=0) {
+            System.out.printf("-");
+        }
+        System.out.printf("%,d원%n", totalBenefits.values().stream().reduce(0, Integer::sum));
     }
 
     public void printTotalPayment() {
