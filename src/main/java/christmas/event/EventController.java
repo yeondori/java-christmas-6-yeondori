@@ -19,18 +19,20 @@ public class EventController {
     private final DiscountPolicy discountPolicy;
     private final OrderController orderController;
     private final List<Order> orders;
+    private final int date;
 
-    private EventController(DiscountPolicy discountPolicy, OrderController orderController, List<Order> orders) {
+    public EventController(DiscountPolicy discountPolicy, OrderController orderController, List<Order> orders, int date) {
         this.discountPolicy = discountPolicy;
         this.orderController = orderController;
         this.orders = orders;
+        this.date = date;
     }
 
-    public static EventController from(List<Order> receiveOrders) {
-        return new EventController(new DiscountPolicy(), new OrderController(), receiveOrders);
+    public static EventController from(List<Order> receiveOrders, int date) {
+        return new EventController(new DiscountPolicy(), new OrderController(), receiveOrders, date);
     }
 
-    public Map<Discount, Integer> getTotalBenefits(int date) {
+    public Map<Discount, Integer> getTotalBenefits() {
         Map<Category, Integer> quantityByCategory = orderController.getQuantityByCategory(orders);
 
         Map<Discount, Integer> totalBenefits = new HashMap<>();
@@ -43,9 +45,7 @@ public class EventController {
         return totalBenefits;
     }
 
-    public EventBadge getEventBadge(int date) {
-        int totalBenefitPrice = getTotalBenefitPrice(date);
-
+    public static EventBadge getEventBadge(int totalBenefitPrice) {
         if (totalBenefitPrice < 별.getBenefitPrice()) {
             return 미대상;
         }
@@ -62,15 +62,15 @@ public class EventController {
         return orderController.getTotalPrice(orders);
     }
 
-    public int getTotalBenefitPrice(int date) {
-        return getTotalBenefits(date).values().stream()
+    public int getTotalBenefitPrice() {
+        return getTotalBenefits().values().stream()
                 .mapToInt(Integer::intValue)
                 .sum();
     }
 
-    public int getTotalPayment(int date) {
+    public int getTotalPayment() {
         int totalPrice = getOrderPrice();
-        int benefitPrice = getTotalBenefitPrice(date);
+        int benefitPrice = getTotalBenefitPrice();
 
         return totalPrice - benefitPrice;
     }
