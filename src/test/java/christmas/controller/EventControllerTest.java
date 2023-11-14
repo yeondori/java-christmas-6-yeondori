@@ -3,15 +3,33 @@ package christmas.controller;
 import christmas.discount.DiscountPolicy;
 import christmas.event.EventBadge;
 import christmas.menu.Category;
+import christmas.menu.Menu;
+import christmas.menu.MenuBoard;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 class EventControllerTest {
+    private final MenuBoard menuBoard = new MenuBoard(Arrays.asList(
+            new Menu("양송이수프", 6_000, Category.APPETIZER),
+            new Menu("타파스", 5_500, Category.APPETIZER),
+            new Menu("시저샐러드", 8_000, Category.APPETIZER),
+            new Menu("티본스테이크", 55_000, Category.MAIN),
+            new Menu("바비큐립", 54_000, Category.MAIN),
+            new Menu("해산물파스타", 35_000, Category.MAIN),
+            new Menu("크리스마스파스타", 25_000, Category.MAIN),
+            new Menu("초코케이크", 15_000, Category.DESSERT),
+            new Menu("아이스크림", 5_000, Category.DESSERT),
+            new Menu("제로콜라", 3_000, Category.DRINK),
+            new Menu("레드와인", 60_000, Category.DRINK),
+            new Menu("샴페인", 25_000, Category.DRINK)
+    ));
+
     private final int StarThreshold = 5000;
     private final int TreeThreshold = 10000;
     private final int SantaThreshold = 20000;
@@ -69,7 +87,7 @@ class EventControllerTest {
         orderInput.put("티본스테이크", 2);
         orderInput.put("초코케이크", 1);
 
-        OrderController orderController = OrderController.receiveOrders(orderInput);
+        OrderController orderController = OrderController.receiveOrders(menuBoard, orderInput);
         return orderController;
     }
 

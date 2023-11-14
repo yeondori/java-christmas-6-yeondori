@@ -3,11 +3,14 @@ package christmas.menu;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class MenuBoardTest {
-    MenuBoard menuBoard = MenuBoard.loadMenu();
+    private final MenuBoard menuBoard = new MenuBoard(Arrays.asList(
+            new Menu("양송이수프", 6_000, Category.APPETIZER)));
     private static final String 있는_메뉴 = "양송이수프";
     private static final String 없는_메뉴 = "뿌링클";
 

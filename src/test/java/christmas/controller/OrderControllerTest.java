@@ -1,17 +1,34 @@
 package christmas.controller;
 
 import christmas.menu.Category;
+import christmas.menu.Menu;
 import christmas.menu.MenuBoard;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class OrderControllerTest {
+    MenuBoard menuBoard = new MenuBoard(Arrays.asList(
+            new Menu("양송이수프", 6_000, Category.APPETIZER),
+            new Menu("타파스", 5_500, Category.APPETIZER),
+            new Menu("시저샐러드", 8_000, Category.APPETIZER),
+            new Menu("티본스테이크", 55_000, Category.MAIN),
+            new Menu("바비큐립", 54_000, Category.MAIN),
+            new Menu("해산물파스타", 35_000, Category.MAIN),
+            new Menu("크리스마스파스타", 25_000, Category.MAIN),
+            new Menu("초코케이크", 15_000, Category.DESSERT),
+            new Menu("아이스크림", 5_000, Category.DESSERT),
+            new Menu("제로콜라", 3_000, Category.DRINK),
+            new Menu("레드와인", 60_000, Category.DRINK),
+            new Menu("샴페인", 25_000, Category.DRINK)
+    ));
 
     private final int MAX_QUANTITY = 20;
 
@@ -22,7 +39,7 @@ class OrderControllerTest {
         orderInput.put("양송이수프", 1);
         orderInput.put("티본스테이크", MAX_QUANTITY);
 
-        assertThatThrownBy(() -> OrderController.receiveOrders(orderInput))
+        assertThatThrownBy(() -> OrderController.receiveOrders(menuBoard, orderInput))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
@@ -33,7 +50,7 @@ class OrderControllerTest {
         orderInput.put("제로콜라", 1);
         orderInput.put("샴페인", 2);
 
-        assertThatThrownBy(() -> OrderController.receiveOrders(orderInput))
+        assertThatThrownBy(() -> OrderController.receiveOrders(menuBoard, orderInput))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
@@ -44,10 +61,10 @@ class OrderControllerTest {
         orderInput.put("양송이수프", 1);
         orderInput.put("제로콜라", 2);
 
-        int expectedPrice = MenuBoard.loadMenu().findPrice("양송이수프") * 1
-                + MenuBoard.loadMenu().findPrice("제로콜라") * 2;
+        int expectedPrice = menuBoard.findPrice("양송이수프") * 1
+                + menuBoard.findPrice("제로콜라") * 2;
 
-        OrderController orderController = OrderController.receiveOrders(orderInput);
+        OrderController orderController = OrderController.receiveOrders(menuBoard, orderInput);
 
         assertThat(orderController.getTotalPrice()).isEqualTo(expectedPrice);
     }
@@ -60,7 +77,7 @@ class OrderControllerTest {
         orderInput.put("초코케이크", 1);
         orderInput.put("아이스크림", 2);
 
-        OrderController orderController = OrderController.receiveOrders(orderInput);
+        OrderController orderController = OrderController.receiveOrders(menuBoard, orderInput);
         Map<Category, Integer> result = orderController.getQuantityByCategory();
 
         assertThat(result).containsExactlyInAnyOrderEntriesOf(Map.of(
