@@ -18,29 +18,27 @@ import static christmas.event.EventBadge.*;
 public class EventController {
     private final DiscountPolicy discountPolicy;
     private final OrderController orderController;
-    private final List<Order> orders;
     private final int date;
 
-    public EventController(DiscountPolicy discountPolicy, OrderController orderController, List<Order> orders, int date) {
+    public EventController(DiscountPolicy discountPolicy, OrderController orderController, int date) {
         this.discountPolicy = discountPolicy;
         this.orderController = orderController;
-        this.orders = orders;
         this.date = date;
     }
 
-    public static EventController from(List<Order> receiveOrders, int date) {
-        return new EventController(new DiscountPolicy(), new OrderController(), receiveOrders, date);
+    public static EventController from(OrderController orderController, int date) {
+        return new EventController(new DiscountPolicy(), orderController, date);
     }
 
     public Map<Discount, Integer> getTotalBenefits() {
-        Map<Category, Integer> quantityByCategory = orderController.getQuantityByCategory(orders);
+        Map<Category, Integer> quantityByCategory = orderController.getQuantityByCategory();
 
         Map<Discount, Integer> totalBenefits = new HashMap<>();
         totalBenefits.put(CHRISTMAS, discountPolicy.getChristmasDiscount(date));
         totalBenefits.put(SPECIAL, discountPolicy.getSpecialDayDiscount(date));
         totalBenefits.put(WEEKDAY, discountPolicy.getWeekdayDiscount(date, quantityByCategory.get(DESSERT)));
         totalBenefits.put(WEEKEND, discountPolicy.getWeekendDiscount(date, quantityByCategory.get(MAIN)));
-        totalBenefits.put(GIFT, discountPolicy.getGiftDiscount(OrderController.getTotalPrice(orders)));
+        totalBenefits.put(GIFT, discountPolicy.getGiftDiscount(orderController.getTotalPrice()));
 
         return totalBenefits;
     }
@@ -59,7 +57,7 @@ public class EventController {
     }
 
     public int getOrderPrice() {
-        return orderController.getTotalPrice(orders);
+        return orderController.getTotalPrice();
     }
 
     public int getTotalBenefitPrice() {
