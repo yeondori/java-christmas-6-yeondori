@@ -1,12 +1,15 @@
 package christmas.ui;
 
 import christmas.discount.Discount;
+import christmas.event.EventBadge;
 import christmas.event.EventController;
 import christmas.order.Order;
 import christmas.order.OrderController;
 
 import java.util.List;
 import java.util.Map;
+
+import static christmas.event.EventBadge.미대상;
 
 public class OutputView {
     public void printResult() {
@@ -43,6 +46,19 @@ public class OutputView {
         System.out.printf("%,d원%n", totalPrice - totalBenefitPrice);
     }
 
+    public void printEventBadge(List<Order> orders, int date) {
+        EventController eventController = EventController.from(orders);
+
+        int totalBenefitPrice = eventController.getTotalBenefitPrice(date);
+        EventBadge eventBadge = EventController.getEventBadge(totalBenefitPrice);
+
+        System.out.println("<12월 이벤트 배지>");
+        if (eventBadge==미대상) {
+            System.out.println("없음");
+        }
+        System.out.println(eventBadge.name());
+    }
+
     private static void printBenefitsDetail(Map<Discount, Integer> totalBenefits) {
         System.out.println("\n<혜택 내역>");
 
@@ -69,5 +85,4 @@ public class OutputView {
             System.out.println("없음");
         }
     }
-
 }
