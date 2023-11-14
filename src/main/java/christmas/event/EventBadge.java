@@ -1,7 +1,7 @@
 package christmas.event;
 
 public enum EventBadge {
-    미대상(null),
+    없음(null),
     별(5_000),
     트리(10_000),
     산타(20_000);
