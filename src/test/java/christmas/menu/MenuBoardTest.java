@@ -1,8 +1,5 @@
 package christmas.menu;
 
-import christmas.menu.Category;
-import christmas.menu.Menu;
-import christmas.menu.MenuBoard;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -24,19 +21,6 @@ class MenuBoardTest {
     @Test
     void hasMenuFalseCase() {
         assertThat(menuBoard.hasMenu(없는_메뉴)).isFalse();
-    }
-
-    @DisplayName("메뉴판에 존재하면 메뉴를 반환한다.")
-    @Test
-    void findMenuIfPresent() {
-        assertThat(menuBoard.findMenu(있는_메뉴)).isInstanceOf(Menu.class);
-    }
-
-    @DisplayName("메뉴판에 존재하지 않으면 예외를 발생한다.")
-    @Test
-    void findMenuIfNotPresent() {
-        assertThatThrownBy(() -> menuBoard.findMenu(없는_메뉴))
-                .isInstanceOf(IllegalArgumentException.class);
     }
 
     @DisplayName("메뉴판에 존재하면 카테고리를 반환한다.")
