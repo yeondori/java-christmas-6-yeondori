@@ -3,10 +3,8 @@ package christmas.discount;
 import christmas.event.EventCalendar;
 
 import static christmas.discount.Discount.*;
-import static christmas.event.EventCalendar.*;
 
 public class DiscountPolicy {
-    private final int MIN_ORDER_AMOUNT_FOR_DISCOUNT = 10000;
     private final EventCalendar eventCalendar = new EventCalendar();
 
     public int getChristmasDiscount(int orderAmount, int date) {
