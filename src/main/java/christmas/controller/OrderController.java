@@ -61,7 +61,7 @@ public class OrderController {
     }
 
     public static Map<Category, Integer> getQuantityByCategory(List<Order> orders) {
-        Map<Category, Integer> totalQunatityByCategory = new HashMap<>();
+        Map<Category, Integer> totalQuantityByCategory = new HashMap<>();
 
         for (Category category : Category.values()) {
             int totalQuantity = orders.stream()
@@ -69,9 +69,9 @@ public class OrderController {
                     .mapToInt(Order::getQuantity)
                     .sum();
 
-            totalQunatityByCategory.put(category, totalQuantity);
+            totalQuantityByCategory.put(category, totalQuantity);
         }
 
-        return totalQunatityByCategory;
+        return totalQuantityByCategory;
     }
 }
