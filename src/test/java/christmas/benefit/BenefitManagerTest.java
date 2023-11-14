@@ -1,10 +1,9 @@
-package christmas.controller;
+package christmas.benefit;
 
-import christmas.discount.DiscountPolicy;
-import christmas.event.EventBadge;
 import christmas.menu.Category;
 import christmas.menu.Menu;
 import christmas.menu.MenuBoard;
+import christmas.order.Orders;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -14,7 +13,7 @@ import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class EventControllerTest {
+class BenefitManagerTest {
     private final MenuBoard menuBoard = new MenuBoard(Arrays.asList(
             new Menu("양송이수프", 6_000, Category.APPETIZER),
             new Menu("타파스", 5_500, Category.APPETIZER),
@@ -38,7 +37,7 @@ class EventControllerTest {
     @Test
     void getEventBadgeIfBenefitUnder5000() {
         int totalBenefitPrice = StarThreshold - 1;
-        EventBadge eventBadge = EventController.getEventBadge(totalBenefitPrice);
+        EventBadge eventBadge = BenefitManager.getEventBadge(totalBenefitPrice);
 
         assertThat(eventBadge).isEqualTo(EventBadge.NONE);
     }
@@ -47,7 +46,7 @@ class EventControllerTest {
     @Test
     void getEventBadgeIfBenefitUnder10000() {
         int totalBenefitPrice = TreeThreshold - 1;
-        EventBadge eventBadge = EventController.getEventBadge(totalBenefitPrice);
+        EventBadge eventBadge = BenefitManager.getEventBadge(totalBenefitPrice);
 
         assertThat(eventBadge).isEqualTo(EventBadge.STAR);
     }
@@ -56,7 +55,7 @@ class EventControllerTest {
     @Test
     void getEventBadgeIfBenefitUnder20000() {
         int totalBenefitPrice = SantaThreshold - 1;
-        EventBadge eventBadge = EventController.getEventBadge(totalBenefitPrice);
+        EventBadge eventBadge = BenefitManager.getEventBadge(totalBenefitPrice);
 
         assertThat(eventBadge).isEqualTo(EventBadge.TREE);
     }
@@ -65,7 +64,7 @@ class EventControllerTest {
     @Test
     void getEventBadgeIfBenefitOver20000() {
         int totalBenefitPrice = SantaThreshold;
-        EventBadge eventBadge = EventController.getEventBadge(totalBenefitPrice);
+        EventBadge eventBadge = BenefitManager.getEventBadge(totalBenefitPrice);
 
         assertThat(eventBadge).isEqualTo(EventBadge.SANTA);
     }
@@ -73,28 +72,28 @@ class EventControllerTest {
     @DisplayName("주문내역과 주문일자를 입력하면 총혜택금액을 반환한다.")
     @Test
     void getTotalBenefitPrice() {
-        OrderController orderController = createTestOrders();
+        Orders orders = createTestOrders();
 
-        EventController eventController = EventController.from(orderController, 25);
-        int actualDiscount = eventController.getTotalBenefitPrice();
+        BenefitManager benefitManager = BenefitManager.from(25);
+        int actualDiscount = benefitManager.getTotalBenefitPrice(orders);
 
-        int expectedDiscount = calculateExpectedDiscount(orderController, 25);
+        int expectedDiscount = calculateExpectedDiscount(orders, 25);
         assertThat(actualDiscount).isEqualTo(expectedDiscount);
     }
 
-    private OrderController createTestOrders() {
+    private Orders createTestOrders() {
         Map<String, Integer> orderInput = new HashMap<>();
         orderInput.put("티본스테이크", 2);
         orderInput.put("초코케이크", 1);
 
-        OrderController orderController = OrderController.receiveOrders(menuBoard, orderInput);
-        return orderController;
+        Orders orders = Orders.receiveOrders(menuBoard, orderInput);
+        return orders;
     }
 
-    private int calculateExpectedDiscount(OrderController orderController, int date) {
+    private int calculateExpectedDiscount(Orders orders, int date) {
         DiscountPolicy discountPolicy = new DiscountPolicy();
-        Map<Category, Integer> quantityByCategory = orderController.getQuantityByCategory();
-        int totalPrice = orderController.getTotalPrice();
+        Map<Category, Integer> quantityByCategory = orders.getQuantityByCategory();
+        int totalPrice = orders.getTotalPrice();
 
         int christmasDiscount = discountPolicy.getChristmasDiscount(totalPrice, date);
         int specialDayDiscount = discountPolicy.getSpecialDayDiscount(totalPrice, date);

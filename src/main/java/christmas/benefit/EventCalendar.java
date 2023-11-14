@@ -1,4 +1,4 @@
-package christmas.event;
+package christmas.benefit;
 
 import java.util.Arrays;
 import java.util.List;

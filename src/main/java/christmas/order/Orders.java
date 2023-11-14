@@ -1,8 +1,7 @@
-package christmas.controller;
+package christmas.order;
 
 import christmas.menu.Category;
 import christmas.menu.MenuBoard;
-import christmas.order.Order;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -12,22 +11,22 @@ import java.util.stream.Collectors;
 
 import static christmas.menu.Category.DRINK;
 
-public class OrderController {
+public class Orders {
 
     private final List<Order> orders;
 
-    private OrderController(List<Order> orders) {
+    private Orders(List<Order> orders) {
         this.orders = orders;
     }
 
-    public static OrderController receiveOrders(MenuBoard menuBoard, Map<String, Integer> orderInput) {
+    public static Orders receiveOrders(MenuBoard menuBoard, Map<String, Integer> orderInput) {
         List<Order> receiveOrders = new ArrayList<>();
         orderInput.forEach((menuName, quantity) -> {
             receiveOrders.add(Order.createOrderOf(menuBoard, menuName, quantity));
         });
 
         validateOrders(receiveOrders);
-        return new OrderController(receiveOrders);
+        return new Orders(receiveOrders);
     }
 
     private static void validateOrders(List<Order> orders) {

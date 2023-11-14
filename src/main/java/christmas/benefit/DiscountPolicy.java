@@ -1,8 +1,6 @@
-package christmas.discount;
+package christmas.benefit;
 
-import christmas.event.EventCalendar;
-
-import static christmas.discount.Discount.*;
+import static christmas.benefit.Discount.*;
 
 public class DiscountPolicy {
     private final EventCalendar eventCalendar = new EventCalendar();

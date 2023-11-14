@@ -1,4 +1,4 @@
-package christmas.controller;
+package christmas.order;
 
 import christmas.menu.Category;
 import christmas.menu.Menu;
@@ -8,13 +8,12 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-class OrderControllerTest {
+class OrdersTest {
     MenuBoard menuBoard = new MenuBoard(Arrays.asList(
             new Menu("양송이수프", 6_000, Category.APPETIZER),
             new Menu("타파스", 5_500, Category.APPETIZER),
@@ -39,7 +38,7 @@ class OrderControllerTest {
         orderInput.put("양송이수프", 1);
         orderInput.put("티본스테이크", MAX_QUANTITY);
 
-        assertThatThrownBy(() -> OrderController.receiveOrders(menuBoard, orderInput))
+        assertThatThrownBy(() -> Orders.receiveOrders(menuBoard, orderInput))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
@@ -50,7 +49,7 @@ class OrderControllerTest {
         orderInput.put("제로콜라", 1);
         orderInput.put("샴페인", 2);
 
-        assertThatThrownBy(() -> OrderController.receiveOrders(menuBoard, orderInput))
+        assertThatThrownBy(() -> Orders.receiveOrders(menuBoard, orderInput))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
@@ -64,9 +63,9 @@ class OrderControllerTest {
         int expectedPrice = menuBoard.findPrice("양송이수프") * 1
                 + menuBoard.findPrice("제로콜라") * 2;
 
-        OrderController orderController = OrderController.receiveOrders(menuBoard, orderInput);
+        Orders orders = Orders.receiveOrders(menuBoard, orderInput);
 
-        assertThat(orderController.getTotalPrice()).isEqualTo(expectedPrice);
+        assertThat(orders.getTotalPrice()).isEqualTo(expectedPrice);
     }
 
     @DisplayName("주문한 메뉴의 카테고리별 총 주문 금액을 반환한다")
@@ -77,8 +76,8 @@ class OrderControllerTest {
         orderInput.put("초코케이크", 1);
         orderInput.put("아이스크림", 2);
 
-        OrderController orderController = OrderController.receiveOrders(menuBoard, orderInput);
-        Map<Category, Integer> result = orderController.getQuantityByCategory();
+        Orders orders = Orders.receiveOrders(menuBoard, orderInput);
+        Map<Category, Integer> result = orders.getQuantityByCategory();
 
         assertThat(result).containsExactlyInAnyOrderEntriesOf(Map.of(
                 Category.APPETIZER, 0,

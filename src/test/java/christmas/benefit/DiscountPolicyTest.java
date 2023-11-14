@@ -1,6 +1,5 @@
-package christmas.discount;
+package christmas.benefit;
 
-import christmas.discount.DiscountPolicy;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
