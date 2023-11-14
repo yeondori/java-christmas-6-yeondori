@@ -2,6 +2,8 @@ package christmas.event;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -26,4 +28,15 @@ class EventCalendarTest {
 
         assertThat(eventCalendar.isChristmasPeriod(date)).isFalse();
     }
+
+    @DisplayName("3, 10, 17, 24, 25, 31일은 툭별 할인 기간이다.")
+    @ParameterizedTest
+    @ValueSource(ints = {3, 10, 17, 24, 25, 31})
+    public void isSpecialDayTrueCase(int date) {
+        EventCalendar eventCalendar = new EventCalendar();
+
+        assertThat(eventCalendar.isSpecialDay(date)).isTrue();
+    }
+
+
 }
