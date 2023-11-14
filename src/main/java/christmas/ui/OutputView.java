@@ -12,11 +12,29 @@ import java.util.Map;
 import static christmas.event.EventBadge.미대상;
 
 public class OutputView {
-    public void printResult() {
-        System.out.println("12월 3일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!");
+
+    private final List<Order> orders;
+    private final EventController eventController;
+
+    private OutputView(List<Order> orders, EventController eventController) {
+        this.orders = orders;
+        this.eventController = eventController;
     }
 
-    public void printOrder(List<Order> orders) {
+    public OutputView of(List<Order> orders, EventController eventController) {
+        return new OutputView(orders, eventController);
+    }
+
+    public void printResult() {
+        System.out.println("12월 3일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!");
+
+        printOrder();
+        printBenefits();
+        printTotalPayment();
+        printEventBadge();
+    }
+
+    public void printOrder() {
         System.out.println("\n<주문 메뉴>");
         Map<String, Integer> orderMenus = OrderController.getOrders(orders);
 
@@ -25,38 +43,26 @@ public class OutputView {
                 .forEach(System.out::println);
 
         System.out.println("\n<할인 전 총주문 금액>");
-        System.out.printf("%,d원%n", OrderController.getTotalPrice(orders));
+        System.out.printf("%,d원%n", eventController.getOrderPrice());
     }
 
-    public void printBenefits(List<Order> orders, int date) {
-        EventController eventController = EventController.from(orders);
-        Map<Discount, Integer> totalBenefits = eventController.getTotalBenefits(date);
+    public void printBenefits() {
+        Map<Discount, Integer> totalBenefits = eventController.getTotalBenefits();
 
         printGift(totalBenefits);
         printBenefitsDetail(totalBenefits);
     }
 
-    public void printTotalPayment(List<Order> orders, int date) {
-        EventController eventController = EventController.from(orders);
+    private static void printGift(Map<Discount, Integer> totalBenefits) {
+        System.out.println("\n<증정 메뉴>");
 
-        int totalPrice = OrderController.getTotalPrice(orders);
-        int totalBenefitPrice = eventController.getTotalBenefitPrice(date);
-
-        System.out.println("\n<할인 후 예상 결제 금액>");
-        System.out.printf("%,d원%n", totalPrice - totalBenefitPrice);
-    }
-
-    public void printEventBadge(List<Order> orders, int date) {
-        EventController eventController = EventController.from(orders);
-
-        int totalBenefitPrice = eventController.getTotalBenefitPrice(date);
-        EventBadge eventBadge = EventController.getEventBadge(totalBenefitPrice);
-
-        System.out.println("<12월 이벤트 배지>");
-        if (eventBadge==미대상) {
+        Integer giftDiscount = totalBenefits.get(Discount.GIFT);
+        if (giftDiscount != 0) {
+            System.out.println("샴페인 1개");
+        }
+        if (giftDiscount == 0) {
             System.out.println("없음");
         }
-        System.out.println(eventBadge.name());
     }
 
     private static void printBenefitsDetail(Map<Discount, Integer> totalBenefits) {
@@ -74,15 +80,19 @@ public class OutputView {
         System.out.printf("-%,d원%n", totalBenefits.values().stream().reduce(0, Integer::sum));
     }
 
-    private static void printGift(Map<Discount, Integer> totalBenefits) {
-        System.out.println("\n<증정 메뉴>");
+    public void printTotalPayment() {
+        System.out.println("\n<할인 후 예상 결제 금액>");
+        System.out.printf("%,d원%n", eventController.getTotalPayment());
+    }
 
-        Integer giftDiscount = totalBenefits.get(Discount.GIFT);
-        if (giftDiscount != 0) {
-            System.out.println("샴페인 1개");
-        }
-        if (giftDiscount == 0) {
+    public void printEventBadge() {
+        int totalBenefitPrice = eventController.getTotalBenefitPrice();
+        EventBadge eventBadge = eventController.getEventBadge(totalBenefitPrice);
+
+        System.out.println("<12월 이벤트 배지>");
+        if (eventBadge == 미대상) {
             System.out.println("없음");
         }
+        System.out.println(eventBadge.name());
     }
 }
