@@ -43,16 +43,16 @@ public class EventController {
     }
 
     public static EventBadge getEventBadge(int totalBenefitPrice) {
-        if (totalBenefitPrice < 별.getBenefitPrice()) {
-            return 없음;
+        if (totalBenefitPrice < STAR.getBenefitPrice()) {
+            return NONE;
         }
-        if (totalBenefitPrice < 트리.getBenefitPrice()) {
-            return 별;
+        if (totalBenefitPrice < TREE.getBenefitPrice()) {
+            return STAR;
         }
-        if (totalBenefitPrice < 산타.getBenefitPrice()) {
-            return 트리;
+        if (totalBenefitPrice < SANTA.getBenefitPrice()) {
+            return TREE;
         }
-        return 산타;
+        return SANTA;
     }
 
     public int getOrderPrice() {
