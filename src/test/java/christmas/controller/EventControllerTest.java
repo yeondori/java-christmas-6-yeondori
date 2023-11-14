@@ -16,13 +16,13 @@ class EventControllerTest {
     private final int TreeThreshold = 10000;
     private final int SantaThreshold = 20000;
 
-    @DisplayName("총혜택금액이 5천원 미만이면 배지 '미대상'이다.")
+    @DisplayName("총혜택금액이 5천원 미만이면 배지 '없음'이다.")
     @Test
     void getEventBadgeIfBenefitUnder5000() {
         int totalBenefitPrice = StarThreshold - 1;
         EventBadge eventBadge = EventController.getEventBadge(totalBenefitPrice);
 
-        assertThat(eventBadge).isEqualTo(EventBadge.미대상);
+        assertThat(eventBadge).isEqualTo(EventBadge.없음);
     }
 
     @DisplayName("총혜택금액이 5천원 이상 1만원 미만이면 배지 '별'이다.")
