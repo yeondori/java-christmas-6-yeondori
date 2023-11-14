@@ -12,13 +12,9 @@ public class OutputView {
     private final OrderController orderController;
     private final EventController eventController;
 
-    private OutputView(OrderController orderController, EventController eventController) {
+    public OutputView(OrderController orderController, EventController eventController) {
         this.orderController = orderController;
         this.eventController = eventController;
-    }
-
-    public static OutputView of(OrderController orderController, EventController eventController) {
-        return new OutputView(orderController, eventController);
     }
 
     public void printResult() {
