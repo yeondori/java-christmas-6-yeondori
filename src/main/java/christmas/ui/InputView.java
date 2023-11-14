@@ -45,7 +45,6 @@ public class InputView {
         if (!input.matches("[가-힣\\d,-]+")) {
             throw new IllegalArgumentException(INVALID_ORDER_MESSAGE);
         }
-
         String[] inputs = input.split(",");
 
         return parseMenuAndQuantity(inputs);
@@ -64,11 +63,14 @@ public class InputView {
             orderInput.put(menuAndQuantity[0], Integer.parseInt(menuAndQuantity[1]));
         }
 
+        validateDuplicate(inputs, orderInput);
+        return orderInput;
+    }
+
+    private void validateDuplicate(String[] inputs, Map<String, Integer> orderInput) {
         if (inputs.length != orderInput.size()) {
             throw new IllegalArgumentException(INVALID_ORDER_MESSAGE);
         }
-
-        return orderInput;
     }
 
     private void validaeOrderFormat(String input) {
