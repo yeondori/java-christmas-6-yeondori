@@ -1,6 +1,8 @@
 package christmas.ui;
 
 import camp.nextstep.edu.missionutils.Console;
+import christmas.menu.MenuBoard;
+import christmas.order.Orders;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -10,9 +12,31 @@ public class InputView {
     private static final String INVALID_DATE_MESSAGE = "[ERROR] 유효하지 않은 날짜입니다. 다시 입력해 주세요.";
     private static final String INVALID_ORDER_MESSAGE = "[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.";
 
+    public int requestDate() {
+        while (true) {
+            try {
+                return readDate();
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+
+    public Orders requestOrders(MenuBoard menuBoard) {
+        while (true) {
+            try {
+                Map<String, Integer> orders = readOrders();
+                return Orders.receiveOrders(menuBoard, orders);
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+
     public int readDate() {
         System.out.println("안녕하세요! 우테코 식당 12월 이벤트 플래너입니다.");
         System.out.println("12월 중 식당 예상 방문 날짜는 언제인가요? (숫자만 입력해 주세요!)");
+
         String input = Console.readLine();
 
         return parseDate(input);
