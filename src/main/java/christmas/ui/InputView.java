@@ -38,10 +38,10 @@ public class InputView {
         System.out.println("주문하실 메뉴를 메뉴와 개수를 알려 주세요. (e.g. 해산물파스타-2,레드와인-1,초코케이크-1)");
         String input = Console.readLine();
 
-        return validateOrders(input);
+        return parseOrders(input);
     }
 
-    private Map<String, Integer> validateOrders(String input) {
+    private Map<String, Integer> parseOrders(String input) {
         if (!input.matches("[가-힣\\d,-]+")) {
             throw new IllegalArgumentException(INVALID_ORDER_MESSAGE);
         }
