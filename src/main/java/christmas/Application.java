@@ -1,28 +1,28 @@
 package christmas;
 
-import christmas.controller.EventController;
-import christmas.controller.OrderController;
+import christmas.benefit.BenefitManager;
 import christmas.menu.Category;
 import christmas.menu.Menu;
 import christmas.menu.MenuBoard;
+import christmas.order.Orders;
 import christmas.ui.InputView;
 import christmas.ui.OutputView;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 public class Application {
-    static InputView inputView = new InputView();
-
     public static void main(String[] args) {
+        InputView inputView = new InputView();
+        int date = inputView.requestDate();
+
         MenuBoard menuBoard = initMenuBoard();
-        int date = requestDate();
 
-        OrderController orderController = requestOrders(menuBoard);
-        EventController eventController = EventController.from(orderController, date);
+        Orders orders = inputView.requestOrders(menuBoard);
+        BenefitManager benefitManager = BenefitManager.from(date);
 
-        getResults(orderController, eventController);
+        OutputView outputView = new OutputView(orders, benefitManager);
+        outputView.printResult();
     }
 
     public static MenuBoard initMenuBoard() {
@@ -42,31 +42,5 @@ public class Application {
         );
 
         return new MenuBoard(menus);
-    }
-
-    public static int requestDate() {
-        while (true) {
-            try {
-                return inputView.readDate();
-            } catch (IllegalArgumentException e) {
-                System.out.println(e.getMessage());
-            }
-        }
-    }
-
-    public static OrderController requestOrders(MenuBoard menuBoard) {
-        while (true) {
-            try {
-                Map<String, Integer> orders = inputView.readOrders();
-                return OrderController.receiveOrders(menuBoard, orders);
-            } catch (IllegalArgumentException e) {
-                System.out.println(e.getMessage());
-            }
-        }
-    }
-
-    private static void getResults(OrderController orderController, EventController eventController) {
-        OutputView outputView = new OutputView(orderController, eventController);
-        outputView.printResult();
     }
 }
