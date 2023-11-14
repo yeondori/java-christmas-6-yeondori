@@ -1,15 +1,21 @@
 package christmas.event;
 
 public enum EventBadge {
-    없음(null),
-    별(5_000),
-    트리(10_000),
-    산타(20_000);
+    NONE("없음", null),
+    STAR("별", 5_000),
+    TREE("트리", 10_000),
+    SANTA("산타", 20_000);
 
+    private final String value;
     private final Integer benefitPrice;
 
-    EventBadge(Integer benefitPrice) {
+    EventBadge(String value, Integer benefitPrice) {
+        this.value = value;
         this.benefitPrice = benefitPrice;
+    }
+
+    public String getValue() {
+        return value;
     }
 
     public Integer getBenefitPrice() {
