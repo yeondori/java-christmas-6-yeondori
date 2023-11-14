@@ -70,4 +70,8 @@ public class EventController {
 
         return totalPrice - benefitPrice;
     }
+
+    public int getDate() {
+        return date;
+    }
 }
