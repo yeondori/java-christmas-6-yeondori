@@ -2,9 +2,9 @@ package christmas.ui;
 
 import christmas.discount.Discount;
 import christmas.event.EventBadge;
-import christmas.event.EventController;
+import christmas.controller.EventController;
 import christmas.order.Order;
-import christmas.order.OrderController;
+import christmas.controller.OrderController;
 
 import java.util.List;
 import java.util.Map;

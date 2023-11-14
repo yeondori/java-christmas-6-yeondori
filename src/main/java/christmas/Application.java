@@ -1,8 +1,8 @@
 package christmas;
 
-import christmas.event.EventController;
+import christmas.controller.EventController;
 import christmas.order.Order;
-import christmas.order.OrderController;
+import christmas.controller.OrderController;
 import christmas.ui.InputView;
 import christmas.ui.OutputView;
 
