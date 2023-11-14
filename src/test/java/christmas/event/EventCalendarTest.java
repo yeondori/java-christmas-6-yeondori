@@ -50,12 +50,20 @@ class EventCalendarTest {
     @DisplayName("1, 2, 8, 9, 15, 16, 22, 23, 29, 30일은 주말 할인 기간이다.(평일 할인 기간이 아니다)")
     @ParameterizedTest
     @ValueSource(ints = {1, 2, 8, 9, 15, 16, 22, 23, 29, 30})
-    public void isWeekendTrueCase(int date) {
+    public void isWeekendTrueAndIsWeekdayFalseCase(int date) {
         EventCalendar eventCalendar = new EventCalendar();
 
         assertThat(eventCalendar.isWeekend(date)).isTrue();
         assertThat(eventCalendar.isWeekday(date)).isFalse();
     }
 
+    @DisplayName("1, 2, 8, 9, 15, 16, 22, 23, 29, 30일은 주말 할인 기간이다.(평일 할인 기간이 아니다)")
+    @ParameterizedTest
+    @ValueSource(ints = {3, 4, 5, 6, 7, 10, 11, 12, 13, 14, 17, 18, 19, 20, 21, 24, 25, 26, 27, 28, 31})
+    public void isWeekendFalseAndIsWeekdayTrueCase(int date) {
+        EventCalendar eventCalendar = new EventCalendar();
 
+        assertThat(eventCalendar.isWeekend(date)).isFalse();
+        assertThat(eventCalendar.isWeekday(date)).isTrue();
+    }
 }
