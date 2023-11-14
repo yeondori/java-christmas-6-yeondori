@@ -19,7 +19,7 @@ public class InputView {
     }
 
     private int parseDate(String input) {
-        validateDateFormat(input);
+        validateFormat(input, "\\d+", INVALID_DATE_MESSAGE);
         int date = Integer.parseInt(input);
 
         validateDate(date);
@@ -40,9 +40,7 @@ public class InputView {
     }
 
     private Map<String, Integer> parseOrders(String input) {
-        if (!input.matches("[가-힣\\d,-]+")) {
-            throw new IllegalArgumentException(INVALID_ORDER_MESSAGE);
-        }
+        validateFormat(input, "[가-힣\\d,-]+", INVALID_ORDER_MESSAGE);
         String[] inputs = input.split(",");
 
         return parseMenuAndQuantity(inputs);
@@ -55,8 +53,8 @@ public class InputView {
             validateOrderFormat(input);
 
             String[] menuAndQuantity = input.split("-");
-            validateMenu(menuAndQuantity[0]);
-            validateQuantityFormat(menuAndQuantity[1]);
+            validateFormat(menuAndQuantity[0], "[가-힣]+", INVALID_ORDER_MESSAGE);
+            validateFormat(menuAndQuantity[1], "\\d+", INVALID_ORDER_MESSAGE);
 
             orderInput.put(menuAndQuantity[0], Integer.parseInt(menuAndQuantity[1]));
         }
@@ -77,21 +75,9 @@ public class InputView {
         }
     }
 
-    private void validateMenu(String input) {
-        if (!input.matches("[가-힣]+")) {
-            throw new IllegalArgumentException(INVALID_ORDER_MESSAGE);
-        }
-    }
-
-    private void validateDateFormat(String input) {
-        if (!input.matches("\\d+")) {
-            throw new IllegalArgumentException(INVALID_DATE_MESSAGE);
-        }
-    }
-
-    private void validateQuantityFormat(String input) {
-        if (!input.matches("\\d+")) {
-            throw new IllegalArgumentException(INVALID_ORDER_MESSAGE);
+    private void validateFormat(String input, String regex, String errorMessage) {
+        if (!input.matches(regex)) {
+            throw new IllegalArgumentException(errorMessage);
         }
     }
 }
