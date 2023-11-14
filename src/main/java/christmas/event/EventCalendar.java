@@ -12,4 +12,8 @@ public class EventCalendar {
     public boolean isChristmasPeriod(int date) {
         return  (date>=CHRISTMAS_START && date<= CHRISTMAS_END);
     }
+
+    public boolean isSpecialDay(int date) {
+        return (SPECIAL_DAY.contains(date));
+    }
 }
