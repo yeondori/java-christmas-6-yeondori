@@ -22,7 +22,7 @@ public class OutputView {
     }
 
     public void printResult() {
-        System.out.printf("12월 %d일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!", eventController.getDate());
+        System.out.printf("12월 %d일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!%n", eventController.getDate());
 
         printOrder();
         printBenefits();
