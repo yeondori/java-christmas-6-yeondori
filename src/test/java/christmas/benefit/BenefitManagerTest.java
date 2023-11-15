@@ -81,6 +81,22 @@ class BenefitManagerTest {
         assertThat(actualDiscount).isEqualTo(expectedDiscount);
     }
 
+    @DisplayName("주문내역과 주문일자를 입력하면 총결제금액을 반환한다.")
+    @Test
+    void getTotalPayment() {
+        Orders orders = createTestOrders();
+
+        BenefitManager benefitManager = BenefitManager.from(25);
+
+        int totalPrice = orders.getTotalPrice();
+        int discount = benefitManager.getTotalBenefitPrice(orders);
+        int giftBenefit = benefitManager.getTotalBenefits(orders).get(Discount.GIFT);
+
+        int expectedTotalPayment = totalPrice - discount + giftBenefit;
+
+        assertThat(benefitManager.getTotalPayment(orders)).isEqualTo(expectedTotalPayment);
+    }
+
     private Orders createTestOrders() {
         Map<String, Integer> orderInput = new HashMap<>();
         orderInput.put("티본스테이크", 2);
