@@ -24,6 +24,15 @@ class DiscountPolicyTest {
         assertThat(christmasDiscount).isEqualTo(3400);
     }
 
+    @DisplayName("만원 미만으로 주문하면 크리스마스 할인을 받을 수 없다.")
+    @Test
+    void getNoChristmasDiscountDuringChristmasButOrderAmountUnder10000() {
+        DiscountPolicy discountPolicy = new DiscountPolicy();
+        int christmasDiscount = discountPolicy.getChristmasDiscount(MIN_ORDER_AMOUNT_FOR_DISCOUNT - 1, 25);
+
+        assertThat(christmasDiscount).isEqualTo(0);
+    }
+
     @DisplayName("크리스마스가 지나면 크리스마스 할인을 받을 수 없다.")
     @Test
     void getNoChristmasDiscountAfterChristmas() {
@@ -41,6 +50,17 @@ class DiscountPolicyTest {
         for (int day : specialDay) {
             int specialDiscount = discountPolicy.getSpecialDayDiscount(MIN_ORDER_AMOUNT_FOR_DISCOUNT, day);
             assertThat(specialDiscount).isEqualTo(1000);
+        }
+    }
+
+    @DisplayName("만원 미만으로 주문하면 특별 할인을 받을 수 없다.")
+    @Test
+    void getNoSpecialDiscountOnSpecialDayButOrderAmountUnder10000() {
+        DiscountPolicy discountPolicy = new DiscountPolicy();
+
+        for (int day : specialDay) {
+            int specialDiscount = discountPolicy.getSpecialDayDiscount(MIN_ORDER_AMOUNT_FOR_DISCOUNT - 1, day);
+            assertThat(specialDiscount).isEqualTo(0);
         }
     }
 
@@ -65,6 +85,17 @@ class DiscountPolicyTest {
         assertThat(weekdayDiscount).isEqualTo(2023 * dessertQuantity);
     }
 
+    @DisplayName("만원 미만으로 주문하면 평일 할인을 받을 수 없다.")
+    @Test
+    void getNoWeekdayDiscountOnDessertOrderButOrderAmountUnder10000() {
+        DiscountPolicy discountPolicy = new DiscountPolicy();
+
+        int dessertQuantity = 1;
+        int weekdayDiscount = discountPolicy.getWeekdayDiscount(MIN_ORDER_AMOUNT_FOR_DISCOUNT - 1, WEEKDAY, dessertQuantity);
+
+        assertThat(weekdayDiscount).isEqualTo(0);
+    }
+
     @DisplayName("주말에 메인을 주문하면 주말 할인을 받을 수 있다.")
     @Test
     void getWeekendDiscountOnMainOrder() {
@@ -74,6 +105,17 @@ class DiscountPolicyTest {
         int weekendDiscount = discountPolicy.getWeekendDiscount(MIN_ORDER_AMOUNT_FOR_DISCOUNT, WEEKEND, mainQuanitty);
 
         assertThat(weekendDiscount).isEqualTo(2023 * mainQuanitty);
+    }
+
+    @DisplayName("주말에 메인을 주문하면 주말 할인을 받을 수 있다.")
+    @Test
+    void getNoWeekendDiscountOnMainOrderButOrderAmountUnder10000() {
+        DiscountPolicy discountPolicy = new DiscountPolicy();
+
+        int mainQuanitty = 2;
+        int weekendDiscount = discountPolicy.getWeekendDiscount(MIN_ORDER_AMOUNT_FOR_DISCOUNT - 1, WEEKEND, mainQuanitty);
+
+        assertThat(weekendDiscount).isEqualTo(0);
     }
 
     @DisplayName("12만원 이상 구매시 증정 할인을 받을 수 있다.")
